@@ -14,7 +14,7 @@ async def user_start(message: Message, state: FSMContext):
     if await state.get_state() == "UserInfo:registered":
         await message.answer("{data}".format(data=data))
     else:
-        await message.answer_photo(photo=InputFile(r'C:\Users\Abdulloh\Desktop\hrbot\tgbot\photos\start.jpg'))
+        # await message.answer_photo(photo=InputFile(r'C:\Users\alimov.a\Desktop\hrbot (2)\hrbot\tgbot\photos\start.jpg'))
         await message.answer(_("""  
     Ассалому алайкум ! Келинг, аввал хизмат кўрсатиш тилини танлаб олайлик.
 
@@ -78,7 +78,31 @@ async def user_phone(message: Message, state: FSMContext):
     await state.update_data(phonems=phonems)
 
 
-
+async def additional_info(message: Message, state: FSMContext):
+    await state.update_data(additional=message.text)
+    await message.delete()
+    data = await state.get_data()
+    try:
+        await message.bot.delete_message(message.chat.id, message_id=data.get('anketams')['message_id'])
+    except Exception:
+        pass
+    await message.bot.edit_message_text(_("""
+Анкетангиз тузилди: 
+ФИО: {name}
+Телефон: {phone}
+Ёшингиз: {age}
+Маълумотингиз: {educ}
+Дастурлаш тили: {prog_lang}
+Кошимча маьлумотлар: {add_info}
+""".format(
+    name=data.get('fio'),
+    phone=data.get('phone'),
+    age=data.get('age'),
+    educ=data.get('education'),
+    prog_lang=data.get('prog_lang'),
+    add_info=data.get('additional')
+    )), chat_id=message.chat.id, message_id=data.get('addms')['message_id'], reply_markup=tasdiqlash_inl_kb)
+    await UserInfo.next()
 
 async def phone_orqaga(message: Message, state: FSMContext):
     data = await state.get_data()
@@ -89,8 +113,8 @@ async def phone_orqaga(message: Message, state: FSMContext):
     await state.update_data(fioms=fioms)
 
 def register_user(dp: Dispatcher):
-    dp.register_message_handler(user_start, text="/start")
+    dp.register_message_handler(user_start, commands=["start"], state="*")
     dp.register_message_handler(user_fio, state=UserInfo.fio)
     dp.register_message_handler(phone_orqaga, state=UserInfo.telefon, text='🔙  Оркага')
     dp.register_message_handler(user_phone, state=UserInfo.telefon, content_types=[ContentType.TEXT, ContentType.CONTACT])
-    
+    dp.register_message_handler(additional_info, state=UserInfo.additional)

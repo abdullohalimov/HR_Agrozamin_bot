@@ -1,5 +1,5 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from tgbot.keyboards.callback_factory import lang_callback, jins_callback, education_callback, programming_lang_callback, tasdiqlash_callback, yoshlar_callback
+from tgbot.keyboards.callback_factory import lang_callback, jins_callback, education_callback, programming_lang_callback, tasdiqlash_callback, yoshlar_callback, extra_lang_callback
 from tgbot.hr_i18n import _
 
 language_inl_kb = InlineKeyboardMarkup(
@@ -19,7 +19,7 @@ jins_inl_kb = InlineKeyboardMarkup(
     ])
 
 education_inl_kb = InlineKeyboardMarkup(
-    row_width=1,
+    row_width=2,
     inline_keyboard=[
     [InlineKeyboardButton(_("Ўрта "), callback_data=education_callback.new("o'rta"))], 
     [InlineKeyboardButton(_("Ўрта махсус"), callback_data=education_callback.new("o'rta-maxsus"))],
@@ -30,18 +30,22 @@ education_inl_kb = InlineKeyboardMarkup(
     [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
     ])
 
-programming_lang_inl_kb = InlineKeyboardMarkup(
-    row_width=2,
-    inline_keyboard=[
-    [InlineKeyboardButton(_("Python"), callback_data=programming_lang_callback.new("Python")), 
-    InlineKeyboardButton(_("Laravel"), callback_data=programming_lang_callback.new("Laravel"))],
 
-    [InlineKeyboardButton(_("Angular"), callback_data=programming_lang_callback.new("Angular")), 
-    InlineKeyboardButton(_("JavaScript"), callback_data=programming_lang_callback.new("JavaScript"))],
+def prog_languages_kb():
+    programming_lang_inl_kb = InlineKeyboardMarkup(
+        row_width=2,
+        inline_keyboard=[
+        [InlineKeyboardButton(_("Python"), callback_data=programming_lang_callback.new("Python")), 
+        InlineKeyboardButton(_("Laravel"), callback_data=programming_lang_callback.new("Laravel"))],
 
-    [InlineKeyboardButton(_("Flutter"), callback_data=programming_lang_callback.new("Flutter"))],
-    [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
-    ])
+        [InlineKeyboardButton(_("Angular"), callback_data=programming_lang_callback.new("Angular")), 
+        InlineKeyboardButton(_("JavaScript"), callback_data=programming_lang_callback.new("JavaScript"))],
+
+        [InlineKeyboardButton(_("Flutter"), callback_data=programming_lang_callback.new("Flutter"))],
+        [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
+        ])
+
+    return programming_lang_inl_kb
 
 tasdiqlash_inl_kb = InlineKeyboardMarkup(
     row_width=1,
@@ -67,3 +71,16 @@ yosh_tanlash_inl_kb = InlineKeyboardMarkup(
     [InlineKeyboardButton(_("46 - ..."), callback_data=yoshlar_callback.new("46-..."))],
     [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
     ])
+
+extra = InlineKeyboardMarkup()
+def extra_skills_kb():
+    extra_skills_kb = InlineKeyboardMarkup(row_width=1,
+    inline_keyboard=[[InlineKeyboardButton('SQL', callback_data=extra_lang_callback.new('sql', '1'))],
+    [InlineKeyboardButton('html', callback_data=extra_lang_callback.new('hmtl', '2'))],
+    [InlineKeyboardButton('extra3', callback_data=extra_lang_callback.new('ext3', '3'))],
+    [InlineKeyboardButton('extra4', callback_data=extra_lang_callback.new('ext4', '4'))],
+    [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
+    ]
+    )
+
+    return extra_skills_kb
