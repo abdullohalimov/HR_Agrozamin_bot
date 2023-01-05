@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from tgbot.keyboards.callback_factory import lang_callback, jins_callback, education_callback, programming_lang_callback, tasdiqlash_callback, yoshlar_callback, extra_lang_callback
 from tgbot.hr_i18n import _
+from tgbot.services.api import categories, extra_categories
 
 language_inl_kb = InlineKeyboardMarkup(
     row_width=1, 
@@ -31,19 +32,14 @@ education_inl_kb = InlineKeyboardMarkup(
     ])
 
 
-def prog_languages_kb():
-    programming_lang_inl_kb = InlineKeyboardMarkup(
-        row_width=2,
-        inline_keyboard=[
-        [InlineKeyboardButton(_("Python"), callback_data=programming_lang_callback.new("Python")), 
-        InlineKeyboardButton(_("Laravel"), callback_data=programming_lang_callback.new("Laravel"))],
+def prog_languages_kb(lang):
+    programming_lang_inl_kb = InlineKeyboardMarkup()
 
-        [InlineKeyboardButton(_("Angular"), callback_data=programming_lang_callback.new("Angular")), 
-        InlineKeyboardButton(_("JavaScript"), callback_data=programming_lang_callback.new("JavaScript"))],
+    cat = categories(lang)
+    for key in cat:
+        programming_lang_inl_kb.add(InlineKeyboardButton(f"{cat[key]}", callback_data=programming_lang_callback.new(cat[key], key)))
 
-        [InlineKeyboardButton(_("Flutter"), callback_data=programming_lang_callback.new("Flutter"))],
-        [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
-        ])
+    programming_lang_inl_kb.add(InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga")))
 
     return programming_lang_inl_kb
 
@@ -73,14 +69,14 @@ yosh_tanlash_inl_kb = InlineKeyboardMarkup(
     ])
 
 extra = InlineKeyboardMarkup()
-def extra_skills_kb():
-    extra_skills_kb = InlineKeyboardMarkup(row_width=1,
-    inline_keyboard=[[InlineKeyboardButton('SQL', callback_data=extra_lang_callback.new('sql', '1'))],
-    [InlineKeyboardButton('html', callback_data=extra_lang_callback.new('hmtl', '2'))],
-    [InlineKeyboardButton('extra3', callback_data=extra_lang_callback.new('ext3', '3'))],
-    [InlineKeyboardButton('extra4', callback_data=extra_lang_callback.new('ext4', '4'))],
-    [InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga"))]
-    ]
-    )
 
-    return extra_skills_kb
+def extra_skills_kb(lang):
+    extra_skills_kb2 = InlineKeyboardMarkup()
+    cat = extra_categories(lang)
+    for key in cat:
+        extra_skills_kb2.add(InlineKeyboardButton(f"{cat[key]}", callback_data=extra_lang_callback.new(cat[key], key)))
+
+    extra_skills_kb2.add(InlineKeyboardButton(_("🔙  Оркага"), callback_data=tasdiqlash_callback.new("ortga")))
+    extra_skills_kb2.add(InlineKeyboardButton("✅Тасдиклаш", callback_data=tasdiqlash_callback.new('extra_tasdiqlash')))
+
+    return extra_skills_kb2

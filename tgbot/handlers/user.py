@@ -28,14 +28,14 @@ async def user_fio(message: Message, state: FSMContext):
     if 6 > len(message.text.split()) >= 3:
         await state.update_data(fio=message.text)
         await message.delete()
-        await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('fioms')['message_id'])
-        print(data.get('fioms')['message_id'])
+        await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('fioms'))
+        print(data.get('fioms'))
         await UserInfo.next()
         phonems = await message.answer(_("Телефон рақамингизни +998********* шаклда юборинг, ёки \"📱 Рақам юбориш\" тугмасини босинг:"), reply_markup=phone_keyb)
-        await state.update_data(phonems=phonems)
+        await state.update_data(phonems=phonems.message_id)
     else:
         await message.delete()
-        await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('fioms')['message_id'])
+        await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('fioms'))
         fioms = await message.answer("""
 ❌  Фамилия, Исм, Шариф хато киритилди
 
@@ -43,13 +43,13 @@ async def user_fio(message: Message, state: FSMContext):
 
 ✍🏼 Фамилия, Исм, Шарифингизни қайтадан киритинг.
 """)    
-        await state.update_data(fioms=fioms)
+        await state.update_data(fioms=fioms.message_id)
     
 
 async def user_phone(message: Message, state: FSMContext):
     await message.delete()
     data = await state.get_data()
-    await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems')['message_id'])
+    await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems'))
     try:
         await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems2')['message_id'])
     except Exception:
@@ -75,46 +75,20 @@ async def user_phone(message: Message, state: FSMContext):
 шаклда юборинг, ёки "📱 Рақам юбориш" тугмасини босинг:""", reply_markup=phone_keyb)
 
 
-    await state.update_data(phonems=phonems)
+    await state.update_data(phonems=phonems.message_id)
 
-
-async def additional_info(message: Message, state: FSMContext):
-    await state.update_data(additional=message.text)
-    await message.delete()
-    data = await state.get_data()
-    try:
-        await message.bot.delete_message(message.chat.id, message_id=data.get('anketams')['message_id'])
-    except Exception:
-        pass
-    await message.bot.edit_message_text(_("""
-Анкетангиз тузилди: 
-ФИО: {name}
-Телефон: {phone}
-Ёшингиз: {age}
-Маълумотингиз: {educ}
-Дастурлаш тили: {prog_lang}
-Кошимча маьлумотлар: {add_info}
-""".format(
-    name=data.get('fio'),
-    phone=data.get('phone'),
-    age=data.get('age'),
-    educ=data.get('education'),
-    prog_lang=data.get('prog_lang'),
-    add_info=data.get('additional')
-    )), chat_id=message.chat.id, message_id=data.get('addms')['message_id'], reply_markup=tasdiqlash_inl_kb)
-    await UserInfo.next()
 
 async def phone_orqaga(message: Message, state: FSMContext):
     data = await state.get_data()
     await UserInfo.previous()
-    await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems')['message_id'])
+    await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems'))
     await message.delete()
     fioms = await message.bot.send_message(message.chat.id, "✍🏼 Фамилия, Исм, Шарифни киритинг.", reply_markup=ReplyKeyboardRemove(True))
-    await state.update_data(fioms=fioms)
+    await state.update_data(fioms=fioms.message_id)
 
 def register_user(dp: Dispatcher):
     dp.register_message_handler(user_start, commands=["start"], state="*")
     dp.register_message_handler(user_fio, state=UserInfo.fio)
     dp.register_message_handler(phone_orqaga, state=UserInfo.telefon, text='🔙  Оркага')
     dp.register_message_handler(user_phone, state=UserInfo.telefon, content_types=[ContentType.TEXT, ContentType.CONTACT])
-    dp.register_message_handler(additional_info, state=UserInfo.additional)
+    # dp.register_message_handler(additional_info, state=UserInfo.additional)
