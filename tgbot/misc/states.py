@@ -9,5 +9,6 @@ class UserInfo(StatesGroup):
     education = State()
     prog_language = State()
     additional = State()
+    resume = State()
     final = State()
     registered = State()

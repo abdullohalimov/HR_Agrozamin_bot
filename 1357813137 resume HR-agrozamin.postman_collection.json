@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "830326a1-539f-40ed-8f17-64d4d19a9666",
+		"name": "HR-agrozamin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17877956"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "chat_id",
+							"value": "123342",
+							"type": "text"
+						},
+						{
+							"key": "full_name",
+							"value": "Jobir Umirov",
+							"type": "text"
+						},
+						{
+							"key": "phone_number",
+							"value": "977366891",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "E",
+							"type": "text"
+						},
+						{
+							"key": "education",
+							"value": "Oliy",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "18-24",
+							"type": "text"
+						},
+						{
+							"key": "program_language",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "extra_skill",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "extra_skill",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "cv",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/задача.docx"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{mainURL}}/ru/register/",
+					"host": [
+						"{{mainURL}}"
+					],
+					"path": [
+						"ru",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainURL}}/ru/category/",
+					"host": [
+						"{{mainURL}}"
+					],
+					"path": [
+						"ru",
+						"category",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainURL}}/uz/question/?category_id=1",
+					"host": [
+						"{{mainURL}}"
+					],
+					"path": [
+						"uz",
+						"question",
+						""
+					],
+					"query": [
+						{
+							"key": "category_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extra_category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainURL}}/ru/extra-category/",
+					"host": [
+						"{{mainURL}}"
+					],
+					"path": [
+						"ru",
+						"extra-category",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extra-questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainURL}}/uz/question/?extra_category_id=1",
+					"host": [
+						"{{mainURL}}"
+					],
+					"path": [
+						"uz",
+						"question",
+						""
+					],
+					"query": [
+						{
+							"key": "extra_category_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mainURL}}/ru/check/?question_id=1&answer=A",
+					"host": [
+						"{{mainURL}}"
+					],
+					"path": [
+						"ru",
+						"check",
+						""
+					],
+					"query": [
+						{
+							"key": "question_id",
+							"value": "1"
+						},
+						{
+							"key": "answer",
+							"value": "A"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

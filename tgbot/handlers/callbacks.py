@@ -8,31 +8,35 @@ from tgbot.keyboards.inline import prog_languages_kb, language_inl_kb, orqaga_in
     education_inl_kb, jins_inl_kb, extra_skills_kb, tasdiqlash_inl_kb
 from tgbot.keyboards.reply  import phone_keyb
 from tgbot.hr_i18n import _
+import os
+from tgbot.services.api import sessionss, register_user
 
 async def language_callbacks(callback: CallbackQuery, state: FSMContext, callback_data: dict):
     if callback_data.get('language') == "lotin_uz":
-        await state.update_data(language="Uz")
+        await state.update_data(language="uz")
     elif callback_data.get('language') == "russian":
-        await state.update_data(language="Ru")
+        await state.update_data(language="ru")
     elif callback_data.get('language') == "kirill_uz":
-        await state.update_data(language="O'z")
-
+        await state.update_data(language="oz")
     await UserInfo.first()
-    await callback.message.delete()
+    try:
+        await callback.message.delete()
+    except:
+        pass
     await UserInfo.first()
     anketams = await callback.message.answer(_("""
 Бош иш оринларини кориш ва тестлардан отиш учун озингиз хакингиздаги маълумотларни киритингишингиз керак.
-"""))
-    fioms = await callback.message.answer(_("""✍🏼 Фамилия, Исм, Шарифни киритинг."""), reply_markup=ReplyKeyboardRemove())
+"""), reply_markup=ReplyKeyboardRemove())
+    fioms = await callback.message.answer(_("""✍🏼 Фамилия, Исм, Шарифни киритинг."""), reply_markup=orqaga_inl_kb)
     await state.update_data(fioms=fioms.message_id, anketams=anketams.message_id)
     
 async def jins_callbacks(c: CallbackQuery, state: FSMContext, callback_data: dict):
-    if callback_data.get("jinsi") == 'erkak':
-        await state.update_data(jins="erkak")
-    elif callback_data.get("jinsi") == 'ayol':
-        await state.update_data(jins="ayol")
+    if callback_data.get("jinsi") == 'E':
+        await state.update_data(jins="E")
+    elif callback_data.get("jinsi") == 'A':
+        await state.update_data(jins="A")
     await UserInfo.next()
-    await c.message.edit_text("Ёшингиз:", reply_markup=yosh_tanlash_inl_kb)
+    await c.message.edit_text(_("Ёшингиз:"), reply_markup=yosh_tanlash_inl_kb)
 
 async def age_callbacks(c: CallbackQuery, state: FSMContext, callback_data: dict):
     await state.update_data(age=callback_data.get('kategoriyasi'))
@@ -41,41 +45,53 @@ async def age_callbacks(c: CallbackQuery, state: FSMContext, callback_data: dict
 
 async def education_callbacks(c: CallbackQuery, state: FSMContext, callback_data: dict):
     await state.update_data(education=callback_data.get('daraja'))
+    data = await state.get_data()
     await UserInfo.next()
-    await c.message.edit_text(_("Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"), reply_markup=prog_languages_kb("lang"))
+    await c.message.edit_text(_("Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"), reply_markup=await prog_languages_kb(data.get("language")))
 
 async def prog_lang_callbacks(c: CallbackQuery, state: FSMContext, callback_data: dict):
+    await state.update_data(prog_lang_id=callback_data.get("id"))
     await state.update_data(prog_lang=callback_data.get("language"))
-    addms = await c.message.edit_text(_("Қўшимча нималарни биласиз?\nТанланган:"), reply_markup=extra_skills_kb("lang"))
+    data = await state.get_data()
+    addms = await c.message.edit_text(_("Қўшимча нималарни биласиз?\nТанланган:"), reply_markup=await extra_skills_kb(data.get("language"), dict()))
     await state.update_data(addms=addms.message_id)
     await UserInfo.next()
 
 async def extra_skills(c: CallbackQuery, state: FSMContext, callback_data: dict):
     data = await state.get_data()
-    extra_id = data.get('extra_id') if data.get('extra_id') is not None else set()
-    extra_category = data.get('extra_category') if data.get('extra_category') is not None else set()
+    extra_id = data.get('extra_id') if data.get('extra_id') is not None else list()
+    extra_category = data.get('extra_category') if data.get('extra_category') is not None else list()
     if callback_data.get('id') not in extra_id:
-        extra_id.add(callback_data.get('id'))
-        extra_category.add(callback_data.get('category'))
+        extra_id.append(callback_data.get('id'))
+        extra_category.append(callback_data.get('category'))
         await state.update_data(extra_id=extra_id, extra_category=extra_category)
     else:
         extra_id.remove(callback_data.get('id'))
         extra_category.remove(callback_data.get('category'))
         await state.update_data(extra_id=extra_id, extra_category=extra_category)
-    await c.message.edit_text(f"Қўшимча нималарни биласиз?\nТанланган: {', '.join(extra_category)}", reply_markup=extra_skills_kb("lang")) 
-
-    
-
+    extra_id = data.get('extra_category')
+    await c.message.edit_text(_("Қўшимча нималарни биласиз?\nТанланган: {data}".format(data=', '.join(extra_category))), reply_markup=await extra_skills_kb(data.get("language"), extra_category)) 
 
 async def tasdiqlash_callbacks(c: CallbackQuery, state: FSMContext, callback_data: dict):
 
     if callback_data.get('tanlov') == "accept":
+        data = await state.get_data()
+
+        await register_user(chat_id=c.message.chat.id, full_name=data.get('fio'), phone_number=data.get('phone'), 
+        gender=data.get('jinsi'), education=data.get('education'), age=data.get('age'), progra_language=data.get('prog_lang_id'), 
+        extra_skills=data.get('extra_id'), resume_name=data.get('resume_name'), sess=await sessionss())
         await state.reset_state(with_data=False)
-        await c.message.delete()
+        try:
+            await c.message.delete()
+        except: 
+            pass
         await c.answer()
         await UserInfo.last()
+        
         # await c.message.answer(_("Бош меню:"), reply_markup=main_menu_keyb)
     elif callback_data.get('tanlov') == "restart":
+        data = await state.get_data()
+        os.remove(data.get('resume_name'))
         await state.reset_data()
         await UserInfo.first()
         await c.message.edit_text(_("Тилни танлаш"), reply_markup=language_inl_kb)
@@ -84,9 +100,24 @@ async def tasdiqlash_callbacks(c: CallbackQuery, state: FSMContext, callback_dat
         data = await state.get_data()
         statee = await state.get_state()
         print(statee)
+        if statee == "UserInfo:fio":
+            await UserInfo.previous()
+            try:
+                await c.message.bot.delete_message(c.message.chat.id, message_id=data.get('anketams'))
+            except Exception:
+                pass
+            await c.message.edit_text("""  
+Ассалому алайкум ! Келинг, аввал хизмат кўрсатиш тилини танлаб олайлик.
+
+Assalomu alaykum ! Keling, avval xizmat ko'rsatish tilini tanlab olaylik.
+
+Здравствуйте ! Давайте для начала выберим язык обслуживания.""", reply_markup=language_inl_kb)
         if statee == 'UserInfo:jins':
             await UserInfo.previous()
-            await c.message.delete()
+            try:
+                await c.message.delete()
+            except:
+                pass
             phonems = await c.message.answer(_("Телефон рақамингизни +998********* шаклда юборинг, ёки \"📱 Рақам юбориш\" тугмасини босинг:"), reply_markup=phone_keyb)
             await state.update_data(phonems=phonems.message_id)
         if statee == 'UserInfo:age':
@@ -95,39 +126,30 @@ async def tasdiqlash_callbacks(c: CallbackQuery, state: FSMContext, callback_dat
             await state.update_data(phonems=phonems.message_id)
         if statee == 'UserInfo:education':
             await UserInfo.previous()
-            await c.message.edit_text("Ёшингиз:", reply_markup=yosh_tanlash_inl_kb)
+            await c.message.edit_text(_("Ёшингиз:"), reply_markup=yosh_tanlash_inl_kb)
         if statee == 'UserInfo:prog_language':
             await UserInfo.previous()
             await c.message.edit_text(_("Маълумотингиз:"), reply_markup=education_inl_kb)
         if statee == 'UserInfo:additional':
             await UserInfo.previous()
-            await c.message.edit_text(_("Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"), reply_markup=prog_languages_kb('lang'))
+            await state.update_data(extra_category=list(), extra_id=list())
+            await c.message.edit_text(_("Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"), reply_markup=await prog_languages_kb(data.get("language")))
+        if statee == 'UserInfo:resume':
+            await UserInfo.previous()
+            addms = await c.message.edit_text(_("Қўшимча нималарни биласиз?\nТанланган:"), reply_markup=await extra_skills_kb(data.get("language"), dict()))
+            await state.update_data(addms=addms.message_id)
         if statee == 'UserInfo:final':
             await UserInfo.previous()
-            await c.message.edit_text(_("Қўшимча нималарни биласиз?\n\nМисол учун: \"Sql, HTML, CSS, git...\""), reply_markup=orqaga_inl_kb)
+            try:
+                os.remove(data.get('resume_name'))
+            except Exception:
+                pass
+            addms = await c.message.edit_text(_("Резюмеингизни юборинг"), reply_markup=orqaga_inl_kb)
+            await state.update_data(addms=addms.message_id)
 
     if callback_data.get('tanlov') == "extra_tasdiqlash":
-        data = await state.get_data()
-        try:
-            await c.message.bot.delete_message(c.message.chat.id, message_id=data.get('anketams'))
-        except Exception:
-            pass
-        await c.message.edit_text(_("""
-    Анкетангиз тузилди: 
-    ФИО: {name}
-    Телефон: {phone}
-    Ёшингиз: {age}
-    Маълумотингиз: {educ}
-    Дастурлаш тили: {prog_lang}
-    Кошимча маьлумотлар: {add_info}
-    """.format(
-        name=data.get('fio'),
-        phone=data.get('phone'),
-        age=data.get('age'),
-        educ=data.get('education'),
-        prog_lang=data.get('prog_lang'),
-        add_info=', '.join(data.get('extra_category'))
-        )), reply_markup=tasdiqlash_inl_kb)
+        addms = await c.message.edit_text(_("Резюмеингизни юборинг"), reply_markup=orqaga_inl_kb)
+        await state.update_data(addms=addms.message_id)
         await UserInfo.next()
 
 def register_callbacks(dp: Dispatcher):
