@@ -1,0 +1,186 @@
+# German translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-01-08 22:29+0500\n"
+"PO-Revision-Date: 2023-01-08 22:30+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: handlers/callbacks.py:30
+msgid ""
+"Бош иш оринларини кориш ва тестлардан отиш учун озингиз хакингиздаги "
+"маълумотларни киритингишингиз керак."
+msgstr ""
+"Bo'sh ish o'rinlarini ko'rish va testlardan o'tish uchun o'zingiz "
+"xaqingizdagi ma'lumotlarni kiritishingiz kerak"
+
+#: handlers/callbacks.py:31 handlers/callbacks.py:32 handlers/user.py:100
+msgid "✍🏼 Фамилия, Исм, Шарифни киритинг."
+msgstr "✍🏼 Familiya, Ism, Sharifni kiriting"
+
+#: handlers/callbacks.py:42 handlers/callbacks.py:128
+msgid "Ёшингиз:"
+msgstr "Yoshingiz"
+
+#: handlers/callbacks.py:48 handlers/callbacks.py:131
+msgid "Маълумотингиз:"
+msgstr "Ma'lumotingiz"
+
+#: handlers/callbacks.py:54 handlers/callbacks.py:135
+msgid "Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"
+msgstr "Qaysi dasturlash tili bo'yicha o'z faoliyatingizni yuritishni istaysiz?"
+
+#: handlers/callbacks.py:60 handlers/callbacks.py:138
+msgid ""
+"Қўшимча нималарни биласиз?\n"
+"Танланган:"
+msgstr ""
+"Qo'shimcha nimalarni bilasiz?\n"
+"Tanlangan:"
+
+#: handlers/callbacks.py:77
+msgid ""
+"Қўшимча нималарни биласиз?\n"
+"Танланган: {data}"
+msgstr ""
+"Qo'shimcha nimalarni bilasiz?\n"
+"Tanlangan: {data}"
+
+#: handlers/callbacks.py:101
+msgid "Тилни танлаш"
+msgstr "Tilni tanlash"
+
+#: handlers/callbacks.py:120 handlers/user.py:29
+msgid ""
+"Телефон рақамингизни +998********* шаклда юборинг, ёки \"📱 Рақам юбориш\""
+" тугмасини босинг:"
+msgstr ""
+"Telefon raqamingizni +998********* shaklda yuboring, yoki \"📱 Raqam "
+"yuborish\" tugmasini bosing"
+
+#: handlers/callbacks.py:124
+msgid ""
+"{phone} раками кабул килинган\n"
+"Жинсингиз:"
+msgstr ""
+"{phone} raqami qabul qilingan\n"
+"Jinsingiz:"
+
+#: handlers/callbacks.py:146 handlers/callbacks.py:150
+msgid "Резюмеингизни юборинг"
+msgstr "Rezyumeingizni yuboring"
+
+#: handlers/user.py:37
+msgid ""
+"❌  Фамилия, Исм, Шариф хато киритилди\n"
+"\n"
+"✅ Алийев Али Алийевич\n"
+"\n"
+"✍🏼 Фамилия, Исм, Шарифингизни қайтадан киритинг."
+msgstr ""
+"❌  Familiya, Ism, Sharif xato kiritildi\n"
+"✅ Aliyev Ali Aliyevich\n"
+"✍🏼 Familiya, Ism, Sharifingizni qaytadan kiriting.\n"
+
+
+#: handlers/user.py:51 handlers/user.py:60
+msgid ""
+"{phone} раками кабул килинди\n"
+"Жинсингиз:"
+msgstr ""
+"{phone} raqami qabul qilindi\n"
+"Jinsingiz:"
+
+#: handlers/user.py:65
+msgid ""
+"❌  Телефон рақамингиз нотўғри форматда киритилган.\n"
+"\n"
+"☝️ Тeлeфон рақамингизни +9989** *** ** **шаклда юборинг, ёки \"📱 Рақам "
+"юбориш\" тугмасини босинг:"
+msgstr ""
+"❌  Telefon raqamingiz noto'g'ri formatda kiritilgan.\n"
+"☝️ Telefon raqamingizni +998********* shaklda yuboring, yoki \"📱 Raqam "
+"yuborish\" tugmasini bosing"
+
+#: handlers/user.py:92
+msgid ""
+"Анкетангиз тузилди:\n"
+"ФИО: {name}\n"
+"Телефон: {phone}\n"
+"Ёшингиз: {age}\n"
+"Маълумотингиз: {educ}\n"
+"Дастурлаш тили: {prog_lang}\n"
+"Кошимча маьлумотлар: {add_info}\n"
+"Резюмеингиз: {file_name}"
+msgstr ""
+"Anketangiz tuzildi:\n"
+"FIO: {name} \n"
+"Telefon: {phone}\n"
+"Yoshingiz: {age}\n"
+"Ma'lumotingiz: {educ}\n"
+"Dasturlash tili: {prog_lang}\n"
+"Qo'shimcha ma'lumotlar: {add_info}\n"
+"Resyumeingiz: {file_name}"
+
+#: keyboards/inline.py:17
+msgid "👨 Эркак"
+msgstr "👨 Erkak"
+
+#: keyboards/inline.py:18
+msgid "👩 Аёл"
+msgstr "👩 Ayol"
+
+#: keyboards/inline.py:19 keyboards/inline.py:32 keyboards/inline.py:43
+#: keyboards/inline.py:53 keyboards/inline.py:60 keyboards/inline.py:72
+#: keyboards/inline.py:86 keyboards/reply.py:7
+msgid "🔙  Оркага"
+msgstr "🔙 Orqaga"
+
+#: keyboards/inline.py:26
+msgid "Ўрта "
+msgstr "O'rta"
+
+#: keyboards/inline.py:27
+msgid "Ўрта махсус"
+msgstr "O'rta maxsus"
+
+#: keyboards/inline.py:28
+msgid "Олий тугалланмаган"
+msgstr "Oliy tugallanmagan"
+
+#: keyboards/inline.py:29
+msgid "Олий"
+msgstr "Oliy"
+
+#: keyboards/inline.py:30
+msgid "Магистр"
+msgstr "Magistr"
+
+#: keyboards/inline.py:31
+msgid "PhD"
+msgstr "PhD"
+
+#: keyboards/inline.py:51
+msgid "♻️Кайта тузиш"
+msgstr "♻️ Qayta tuzish"
+
+#: keyboards/inline.py:52
+msgid "✅Тасдиклаш"
+msgstr "✅ Tasdiqlash"
+
+#: keyboards/reply.py:6
+msgid "📱 Рақам юбориш"
+msgstr "📱 Raqam yuborish"
+

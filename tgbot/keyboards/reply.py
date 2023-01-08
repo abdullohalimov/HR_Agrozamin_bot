@@ -1,8 +1,9 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from tgbot.hr_i18n import _
 
-phone_keyb = ReplyKeyboardMarkup([
-    [KeyboardButton(_("📱 Рақам юбориш"), request_contact=True)],
-    [KeyboardButton(_('🔙  Оркага'))]
+def phone_keyb(lang):
+    return ReplyKeyboardMarkup([
+    [KeyboardButton(_("📱 Рақам юбориш", locale=lang), request_contact=True)],
+    [KeyboardButton(_('🔙  Оркага', locale=lang))]
     ], resize_keyboard=True
 )
