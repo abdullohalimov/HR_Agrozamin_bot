@@ -1,7 +1,9 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from tgbot.keyboards.callback_factory import lang_callback, jins_callback, education_callback, programming_lang_callback, tasdiqlash_callback, yoshlar_callback, extra_lang_callback
+from tgbot.keyboards.callback_factory import testlar_callback, lang_callback, tasdiqlash_callback, jins_callback, extra_lang_callback, education_callback,programming_lang_callback, yoshlar_callback
 from tgbot.hr_i18n import _
 from tgbot.services.api import categories, extra_categories, sessionss
+
+
 language_inl_kb = InlineKeyboardMarkup(
     row_width=1, 
     inline_keyboard=[
@@ -31,7 +33,6 @@ def education_inl_kb(lang):
     [InlineKeyboardButton(_("PhD", locale=lang), callback_data=education_callback.new("PhD"))],
     [InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
     ])
-
 
 async def prog_languages_kb(lang):
     programming_lang_inl_kb = InlineKeyboardMarkup()
@@ -72,8 +73,8 @@ def yosh_tanlash_inl_kb(lang):
     [InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
     ])
 
-
 async def extra_skills_kb(lang, categories2 = dict()):
+
     extra_skills_kb2 = InlineKeyboardMarkup()
     cat = await extra_categories(lang, await sessionss())
     for key in cat:
@@ -86,3 +87,21 @@ async def extra_skills_kb(lang, categories2 = dict()):
     extra_skills_kb2.add(InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga")))
 
     return extra_skills_kb2
+
+def start_test_inl_kb(lang):
+    keyb = InlineKeyboardMarkup(
+        inline_keyboard=[[
+            InlineKeyboardButton("Тестни бошлаш", callback_data=testlar_callback.new('start', 'start', 'start'))
+        ]])
+
+    return keyb
+
+def test_question_inl_kb(qid, A, B, C, D, category):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(f"A: {A}", callback_data=testlar_callback.new(category, qid, "A"))],
+            [InlineKeyboardButton(f"B: {B}", callback_data=testlar_callback.new(category, qid, "B"))],
+            [InlineKeyboardButton(f"C: {C}", callback_data=testlar_callback.new(category, qid, "C"))],
+            [InlineKeyboardButton(f"D: {D}", callback_data=testlar_callback.new(category, qid, "D"))]
+        ]
+    )

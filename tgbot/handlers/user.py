@@ -1,10 +1,12 @@
+from traceback import print_exc
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message, Contact, ContentType, ReplyKeyboardRemove
 from aiogram.types.input_file import InputFile
 
-from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, education_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb
-from tgbot.keyboards.reply import phone_keyb
+
+from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb
+from tgbot.keyboards.reply import phone_keyb, main_menu
 from tgbot.misc.states import UserInfo 
 
 from tgbot.hr_i18n import _
@@ -12,7 +14,7 @@ import os
 async def user_start(message: Message, state: FSMContext):
     data = await state.get_data()
     if await state.get_state() == "UserInfo:registered":
-        await message.answer("{data}".format(data=data))
+        await message.answer("data", reply_markup=main_menu(data.get('language')))
     else:
         # await message.answer_photo(photo=InputFile(r'C:\Users\alimov.a\Desktop\hrbot (2)\hrbot\tgbot\photos\start.jpg'))
         await message.answer("Ассалому алайкум ! Келинг, аввал хизмат кўрсатиш тилини танлаб олайлик.\n\nAssalomu alaykum ! Keling, avval xizmat ko'rsatish tilini tanlab olaylik.\n\nЗдравствуйте ! Давайте для начала выберим язык обслуживания.", reply_markup=language_inl_kb)
@@ -47,12 +49,15 @@ async def user_phone(message: Message, state: FSMContext):
         await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems2')['message_id'])
     except Exception:
         pass
+        
     try:
-        await state.update_data(phone=message.contact.phone_number[3:])
+        await state.update_data(phone=message.contact.phone_number[4:])
         phonems = await message.answer(_("{phone} раками кабул килинди\nЖинсингиз:", locale=user_lang).format(phone=message.contact.phone_number), reply_markup=jins_inl_kb(data.get('language')))
         await UserInfo.next()
 
     except Exception:
+        print_exc()
+
         try:
             phone = message.text.replace('+', "")
             phone = message.text.replace('', "")
@@ -63,6 +68,7 @@ async def user_phone(message: Message, state: FSMContext):
             else:
                 raise Exception
         except Exception:
+            print_exc()
             phonems = await message.answer(_("❌  Телефон рақамингиз нотўғри форматда киритилган.\n\n☝️ Тeлeфон рақамингизни +9989** *** ** **шаклда юборинг, ёки \"📱 Рақам юбориш\" тугмасини босинг:", locale=data.get('language')), reply_markup=phone_keyb(data.get('language')))
 
 

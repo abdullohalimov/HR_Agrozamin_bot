@@ -7,3 +7,11 @@ def phone_keyb(lang):
     [KeyboardButton(_('🔙  Оркага', locale=lang))]
     ], resize_keyboard=True
 )
+
+def main_menu(lang):
+    return ReplyKeyboardMarkup(
+        [
+        [KeyboardButton(_("Тестни бошлаш", locale=lang))],
+        [KeyboardButton(_("Анкетани кайта тузиш", locale=lang))]
+        ], resize_keyboard=True)
+    

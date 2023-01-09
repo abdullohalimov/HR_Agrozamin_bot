@@ -5,8 +5,6 @@ import requests
 async def sessionss():
     return aiohttp.ClientSession()
 
-
-
 # TODO: language implementation
 async def categories(lang, sess: aiohttp.ClientSession):
     if lang == "de":
@@ -32,7 +30,6 @@ async def extra_categories(lang, sess: aiohttp.ClientSession):
                 ret[response['id']] = response["extra_category_name"]
             print(ret)
             return ret
-
 
 # async def register_user(chat_id, full_name, phone_number, gender, education, age, progra_language, extra_skills, resume_name, lang):
 #     if lang == "de":
@@ -77,3 +74,21 @@ def register(chat_id, full_name, phone_number, gender, education, age, progra_la
 
 # asyncio.run(register_user(lang='ru', chat_id='123456',progra_language='1', full_name='Abdulloh a a', phone_number="998888888", gender='E', education="Oliy", age="18-24", extra_skills=['1', '2'], resume_name='1357813137 resume HR-agrozamin.postman_collection.json'))
 # print(register(lang='ru', chat_id='123456',progra_language='1', full_name='Abdulloh a a', phone_number="998888888", gender='E', education="Oliy", age="18-24", extra_skills=['1', '2'], resume_name='1357813137 resume 1357813137_998998881965.docx'))
+
+def get_questions(lang, category):
+    url = f"http://139.162.159.187:8000/{lang}/question/?category_id={category}"
+
+    response = requests.request("GET", url)
+    resp = response.json()
+
+    return resp
+    # for res in resp:
+    #     print(res['id'])
+    #     print(res['question'])
+    #     print(res['A'])
+    #     print(res['B'])
+    #     print(res['C'])
+    #     print(res['D'])
+    #     print(res['category'])
+
+# get_questions()
