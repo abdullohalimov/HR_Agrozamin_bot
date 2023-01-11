@@ -31,9 +31,9 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Translations
-*.mo
-*.pot
+# # Translations
+# *.mo
+# *.pot
 
 
 # pyenv
