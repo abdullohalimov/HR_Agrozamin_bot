@@ -1,6 +1,7 @@
 import aiohttp
 # import asyncio
 import requests
+import json
 
 async def sessionss():
     return aiohttp.ClientSession()
@@ -63,12 +64,33 @@ def get_questions(lang, category):
     dictt = {}
     for i in range(1, len(resp) + 1):
 
-        dictt[i] = resp[i-1]
+        dictt[f"{i}"] = resp[i-1]
 
     return dictt
 
 
-print(get_questions('uz', '2'))
+def get_extra_quesions(lang, extra_cat):
+    url = f"http://139.162.159.187:8000/{lang}/extra-question/"
+
+    payload = json.dumps({
+    "extra_category_id": extra_cat
+    })
+    headers = {
+            'Content-Type': 'application/json'
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    resp = response.json()
+    dictt = {}
+    for i in range(1, len(resp) + 1):
+
+        dictt[f"{i}"] = resp[i-1]
+
+    return dictt
+
+print(get_extra_quesions('uz', [1]))
+
+# print(get_questions('uz', '2'))
 
 
 
