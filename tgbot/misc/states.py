@@ -12,6 +12,7 @@ class UserInfo(StatesGroup):
     resume = State()
     final = State()
     registered = State()
+    registered_and_tested = State()
 
 class CategoryTests(StatesGroup):
     start = State()

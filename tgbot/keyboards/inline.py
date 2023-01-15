@@ -54,6 +54,13 @@ def tasdiqlash_inl_kb(lang):
     [InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
     ])
 
+def qayta_tuzish_inl_kb(lang):
+    return InlineKeyboardMarkup(
+    row_width=1,
+    inline_keyboard=[
+    [InlineKeyboardButton(_("Анкетани кайта тузиш", locale=lang), callback_data=tasdiqlash_callback.new("restart"))]
+    ])
+
 def orqaga_inl_kb(lang):
     return InlineKeyboardMarkup(
     row_width=1,
@@ -83,7 +90,7 @@ async def extra_skills_kb(lang, categories2 = dict()):
         else:
             extra_skills_kb2.add(InlineKeyboardButton(f"{cat[key]}", callback_data=extra_lang_callback.new(cat[key], key)))
 
-    extra_skills_kb2.add(InlineKeyboardButton("✅Тасдиклаш", callback_data=tasdiqlash_callback.new('extra_tasdiqlash')))
+    extra_skills_kb2.add(InlineKeyboardButton(_("✅Тасдиклаш", locale=lang), callback_data=tasdiqlash_callback.new('extra_tasdiqlash')))
     extra_skills_kb2.add(InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga")))
 
     return extra_skills_kb2
@@ -91,7 +98,7 @@ async def extra_skills_kb(lang, categories2 = dict()):
 def start_test_inl_kb(lang):
     keyb = InlineKeyboardMarkup(
         inline_keyboard=[[
-            InlineKeyboardButton("Тестни бошлаш", callback_data=testlar_callback.new('start', 'start', 'start'))
+            InlineKeyboardButton(_("Тестни бошлаш", locale=lang), callback_data=testlar_callback.new('start', 'start', 'start'))
         ]])
 
     return keyb

@@ -4,8 +4,8 @@ from tgbot.hr_i18n import i18n
 
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.contrib.fsm_storage.redis import RedisStorage2
-from aiogram.contrib.fsm_storage.mongo import MongoStorage
+# from aiogram.contrib.fsm_storage.redis import RedisStorage2
+# from aiogram.contrib.fsm_storage.mongo import MongoStorage
 
 from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
@@ -13,6 +13,7 @@ from tgbot.handlers.admin import register_admin
 from tgbot.handlers.user import register_user
 from tgbot.handlers.callbacks import register_callbacks
 from tgbot.handlers.test import register_test_handlers
+from tgbot.handlers.unnec_messages import register_unnec_messages
 from tgbot.middlewares.environment import EnvironmentMiddleware
 logger = logging.getLogger(__name__)
 
@@ -28,8 +29,9 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     register_admin(dp)
     register_user(dp)
-    register_callbacks(dp)
     register_test_handlers(dp)
+    register_callbacks(dp)
+    register_unnec_messages(dp)
 
 
 async def main():
@@ -40,7 +42,7 @@ async def main():
     logger.info("Starting bot")
     config = load_config(".env")
 
-    storage = MongoStorage() if config.tg_bot.use_mongo else MemoryStorage()
+    storage = MongoStorage() if config.tg_bot.use_redis else MemoryStorage()
     bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     dp = Dispatcher(bot, storage=storage)
     dp.setup_middleware(i18n)
