@@ -8,7 +8,7 @@ from aiogram.types.input_file import InputFile
 from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb
 from tgbot.keyboards.reply import phone_keyb, main_menu
 from tgbot.misc.states import UserInfo 
-
+from tgbot.services.api import delete_users
 from tgbot.hr_i18n import _
 import os
 async def user_start(message: Message, state: FSMContext):
@@ -110,10 +110,12 @@ async def phone_orqaga(message: Message, state: FSMContext):
 
 async def restart(message: Message, state: FSMContext):
     await state.reset_state(with_data=True)
+    delete_users()
     
 
 def register_user(dp: Dispatcher):
     dp.register_message_handler(user_start, commands=["start"], state=[None, UserInfo.registered, UserInfo.registered_and_tested])
+    dp.register_message_handler(restart, commands=["restart"], state="*")
     dp.register_message_handler(user_fio, state=UserInfo.fio)
     dp.register_message_handler(phone_orqaga, state=UserInfo.telefon, text=['🔙  Оркага', "🔙 Orqaga", "🔙 Назад"])
     dp.register_message_handler(user_phone, state=UserInfo.telefon, content_types=[ContentType.TEXT, ContentType.CONTACT])

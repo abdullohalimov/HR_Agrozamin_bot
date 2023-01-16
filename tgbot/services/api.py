@@ -34,11 +34,10 @@ async def extra_categories(lang, sess: aiohttp.ClientSession):
 
 
 
-def register(delete: bool, chat_id, full_name, phone_number, gender, education, age, progra_language, extra_skills, resume_name, lang):
+def register(chat_id, full_name, phone_number, gender, education, age, progra_language, extra_skills, resume_name, lang):
     if lang == "de":
         lang = 'uz'
     url = f"http://139.162.159.187:8000/{lang}/register/"
-
     payload={'chat_id': chat_id,
     'full_name': full_name,
     'phone_number': phone_number,
@@ -51,22 +50,23 @@ def register(delete: bool, chat_id, full_name, phone_number, gender, education, 
     ('cv',(f'{resume_name}',open(f'{resume_name}','rb'),'application/json'))
     ]
     headers = {}
-    if not delete:
-        response = requests.post(url, headers=headers, data=payload, files=files)
-    else:
-        response = requests.delete(url, headers=headers, data=payload, files=files)
-
+    response = requests.post(url, headers=headers, data=payload, files=files, timeout=30)
     return response
 
+def delete_users():
+    url = "http://139.162.159.187:8000/uz/register/"
+    response = requests.delete(url=url, timeout=30)
+    return response
+
+print(delete_users())
 
 def get_questions(lang, category):
     if lang == "de":
         lang = 'uz'
     url = f"http://139.162.159.187:8000/{lang}/question/?category_id={category}"
 
-    response = requests.request("GET", url)
+    response = requests.get(url, timeout=30)
     resp = response.json()
-    resp
     dictt = {}
     for i in range(1, len(resp) + 1):
 
@@ -87,7 +87,7 @@ def get_extra_quesions(lang, extra_cat):
             'Content-Type': 'application/json'
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+    response = requests.get(url, headers=headers, data=payload, timeout=30)
     resp = response.json()
     dictt = {}
     for i in range(1, len(resp) + 1):
@@ -108,7 +108,7 @@ def questions_check(lang, data2):
     'Content-Type': 'application/json'
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+    response = requests.get(url, headers=headers, data=payload, timeout=30)
 
     return dict(response.json())
 
@@ -164,4 +164,3 @@ def questions_check(lang, data2):
 
 # print(dict(a).keys())
 # if 'phone_number' in dict(a).keys():
-    print('ok')
