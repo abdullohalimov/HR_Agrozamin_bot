@@ -1,0 +1,282 @@
+# German translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-01-15 19:02+0500\n"
+"PO-Revision-Date: 2023-01-08 22:30+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: handlers/callbacks.py:30
+msgid ""
+"Бош иш оринларини кориш ва тестлардан отиш учун озингиз хакингиздаги "
+"маълумотларни киритингишингиз керак."
+msgstr ""
+"Bo'sh ish o'rinlarini ko'rish va testlardan o'tish uchun o'zingiz "
+"xaqingizdagi ma'lumotlarni kiritishingiz kerak"
+
+#: handlers/callbacks.py:31 handlers/user.py:108
+msgid "✍🏼 Фамилия, Исм, Шарифни киритинг."
+msgstr "✍🏼 Familiya, Ism, Sharifni kiriting"
+
+#: handlers/callbacks.py:42 handlers/callbacks.py:135
+msgid "Ёшингиз:"
+msgstr "Yoshingiz"
+
+#: handlers/callbacks.py:49 handlers/callbacks.py:138
+msgid "Маълумотингиз:"
+msgstr "Ma'lumotingiz"
+
+#: handlers/callbacks.py:56 handlers/callbacks.py:142
+msgid "Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"
+msgstr "Qaysi dasturlash tili bo'yicha o'z faoliyatingizni yuritishni istaysiz?"
+
+#: handlers/callbacks.py:63 handlers/callbacks.py:145
+msgid ""
+"Қўшимча нималарни биласиз?\n"
+"Танланган:"
+msgstr ""
+"Qo'shimcha nimalarni bilasiz?\n"
+"Tanlangan:"
+
+#: handlers/callbacks.py:81
+msgid ""
+"Қўшимча нималарни биласиз?\n"
+"Танланган: {data}"
+msgstr ""
+"Qo'shimcha nimalarni bilasiz?\n"
+"Tanlangan: {data}"
+
+#: handlers/callbacks.py:98 handlers/user.py:20
+msgid "🏡 Бош меню:"
+msgstr "🏡 Bosh menyu"
+
+#: handlers/callbacks.py:102
+msgid ""
+"Хатолик!\n"
+"Бу телефон раками аввал ройхатдан отказилган\n"
+"Илтимос, анкетани кайта толдиринг!"
+msgstr ""
+"Xatolik!\n"
+"Bu telefon raqami avval ro'yxatdan o'tkazilgan\n"
+"Iltimos, anketani qayta to'ldiring!"
+
+#: handlers/callbacks.py:109
+msgid "Тилни танлаш"
+msgstr "Tilni tanlash"
+
+#: handlers/callbacks.py:127 handlers/user.py:35
+msgid ""
+"Телефон рақамингизни +998********* шаклда юборинг, ёки \"📱 Рақам юбориш\""
+" тугмасини босинг:"
+msgstr ""
+"Telefon raqamingizni +998********* shaklda yuboring, yoki \"📱 Raqam "
+"yuborish\" tugmasini bosing"
+
+#: handlers/callbacks.py:131
+msgid ""
+"{phone} раками кабул килинган\n"
+"Жинсингиз:"
+msgstr ""
+"{phone} raqami qabul qilingan\n"
+"Jinsingiz:"
+
+#: handlers/callbacks.py:153 handlers/callbacks.py:157
+msgid "Резюмеингизни юборинг"
+msgstr "Rezyumeingizni yuboring"
+
+#: handlers/test.py:22
+msgid ""
+"Тестлардан отиш учун 30 дакика вакт берилади. Тестлардаги саволлар "
+"{prog_lang} бойича болади"
+msgstr ""
+"Testlardan o'tish uchun 30 daqiqa vaqt beriladi. Testlardagi savollar "
+"{prog_lang} bo'yicha bo'ladi"
+
+#: handlers/test.py:27
+msgid ""
+"Тестлардан отиш учун 30 дакика вакт берилади. Тестлардаги саволлар "
+"{extra_category} ва {prog_lang} бойича болади"
+msgstr ""
+"Testlardan o'tish uchun 30 daqiqa vaqt beriladi. Testlardagi savollar "
+"{extra_category} va {prog_lang} bo'yicha bo'ladi"
+
+#: handlers/test.py:58 handlers/test.py:80 handlers/test.py:109
+msgid "Колган вакт: {time} дакика"
+msgstr "Qolgan vaqt: {time} daqiqa"
+
+#: handlers/test.py:100
+msgid ""
+"{prog_lang} бойича саволлар сони: {quest_count}\n"
+"Тогри топилган жавоблар сони: {quest_true}\n"
+"\n"
+"Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+msgstr ""
+"{prog_lang} bo'yicha savollar soni: {quest_count}\n"
+"To'g'ri topilgan javoblar soni: {quest_true}\n"
+"\n"
+"Test natijalari jo'natildi, mutaxassis javobini kuting"
+
+#: handlers/test.py:130
+msgid ""
+"{prog_lang} бойича саволлар сони: {quest_count}\n"
+"Тогри топилган жавоблар сони: {quest_true}\n"
+"\n"
+"{extra_cat} бойича саволлар сони: {extra_quest_count}\n"
+"Тогри топилган жавоблар сони: {extra_quest_true}\n"
+"\n"
+"Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+msgstr ""
+"{prog_lang} bo'yicha savollar soni: {quest_count}\n"
+"To'g'ri topilgan javoblar soni: {quest_true}\n"
+"\n"
+"{extra_cat} bo'yicha savollar soni: {extra_quest_count}\n"
+"To'g'ri topilgan javoblar soni: {extra_quest_true}\n"
+"\n"
+"Test natijalari jo'natildi, mutaxassis javobini kuting"
+
+#: handlers/user.py:22
+msgid "Сиз тестлардан отиб болдингиз, натижасини кутинг"
+msgstr "Siz testlardan o'tib bo'ldingiz, natijasini kuting"
+
+#: handlers/user.py:43
+msgid ""
+"❌  Фамилия, Исм, Шариф хато киритилди\n"
+"\n"
+"✅ Алийев Али Алийевич\n"
+"\n"
+"✍🏼 Фамилия, Исм, Шарифингизни қайтадан киритинг."
+msgstr ""
+"❌  Familiya, Ism, Sharif xato kiritildi\n"
+"✅ Aliyev Ali Aliyevich\n"
+"✍🏼 Familiya, Ism, Sharifingizni qaytadan kiriting.\n"
+
+#: handlers/user.py:59 handlers/user.py:69
+msgid ""
+"{phone} раками кабул килинди\n"
+"Жинсингиз:"
+msgstr ""
+"{phone} raqami qabul qilindi\n"
+"Jinsingiz:"
+
+#: handlers/user.py:74
+#, fuzzy
+msgid ""
+"❌  Телефон рақамингиз нотўғри форматда киритилган.\n"
+"\n"
+"☝️ Тeлeфон рақамингизни +9989** *** ** ** шаклда юборинг, ёки \"📱 Рақам "
+"юбориш\" тугмасини босинг:"
+msgstr ""
+"❌  Telefon raqamingiz noto'g'ri formatda kiritilgan.\n"
+"☝️ Telefon raqamingizni +998********* shaklda yuboring, yoki \"📱 Raqam "
+"yuborish\" tugmasini bosing"
+
+#: handlers/user.py:91
+msgid ""
+"Анкетангиз тузилди:\n"
+"ФИО: {name}\n"
+"Телефон: {phone}\n"
+"Ёшингиз: {age}\n"
+"Маълумотингиз: {educ}\n"
+"Дастурлаш тили: {prog_lang}\n"
+"Кошимча маьлумотлар: {add_info}\n"
+"Резюмеингиз: {file_name}"
+msgstr ""
+"Anketangiz tuzildi:\n"
+"FIO: {name} \n"
+"Telefon: {phone}\n"
+"Yoshingiz: {age}\n"
+"Ma'lumotingiz: {educ}\n"
+"Dasturlash tili: {prog_lang}\n"
+"Qo'shimcha ma'lumotlar: {add_info}\n"
+"Resyumeingiz: {file_name}"
+
+#: handlers/user.py:97
+msgid "Йок"
+msgstr "Yo'q"
+
+#: keyboards/inline.py:19
+msgid "👨 Эркак"
+msgstr "👨 Erkak"
+
+#: keyboards/inline.py:20
+msgid "👩 Аёл"
+msgstr "👩 Ayol"
+
+#: keyboards/inline.py:21 keyboards/inline.py:34 keyboards/inline.py:44
+#: keyboards/inline.py:54 keyboards/inline.py:68 keyboards/inline.py:80
+#: keyboards/inline.py:94 keyboards/reply.py:7
+msgid "🔙  Оркага"
+msgstr "🔙 Orqaga"
+
+#: keyboards/inline.py:28
+msgid "Ўрта "
+msgstr "O'rta"
+
+#: keyboards/inline.py:29
+msgid "Ўрта махсус"
+msgstr "O'rta maxsus"
+
+#: keyboards/inline.py:30
+msgid "Олий тугалланмаган"
+msgstr "Oliy tugallanmagan"
+
+#: keyboards/inline.py:31
+msgid "Олий"
+msgstr "Oliy"
+
+#: keyboards/inline.py:32
+msgid "Магистр"
+msgstr "Magistr"
+
+#: keyboards/inline.py:33
+msgid "PhD"
+msgstr "PhD"
+
+#: keyboards/inline.py:52 keyboards/inline.py:61
+msgid "♻️Кайта тузиш"
+msgstr "♻️ Qayta tuzish"
+
+#: keyboards/inline.py:53 keyboards/inline.py:93
+msgid "✅Тасдиклаш"
+msgstr "✅ Tasdiqlash"
+
+#: keyboards/inline.py:101 keyboards/reply.py:14
+msgid "Тестни бошлаш"
+msgstr "Testni boshlash"
+
+#: keyboards/reply.py:6
+msgid "📱 Рақам юбориш"
+msgstr "📱 Raqam yuborish"
+
+#: keyboards/reply.py:15
+#, fuzzy
+msgid "Анкетани кайта тузиш"
+msgstr "Anketani qayta tuzish"
+
+#~ msgid ""
+#~ "Testlardan o'tish uchun 30 daqiqa vaqt"
+#~ " beriladi. Testlardagi savollar {prog_lang} "
+#~ "bo'yicha bo'ladi"
+#~ msgstr ""
+#~ "Testlardan o'tish uchun 30 daqiqa vaqt"
+#~ " beriladi. Testlardagi savollar {prog_lang} "
+#~ "bo'yicha bo'ladi"
+
+#~ msgid ""
+#~ "Testlardan o'tish uchun 30 daqiqa vaqt"
+#~ " beriladi. Testlardagi savollar {extra_category}"
+#~ " va {prog_lang} bo'yicha bo'ladi"
+#~ msgstr ""
+
