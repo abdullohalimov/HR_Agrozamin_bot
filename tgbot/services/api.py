@@ -94,6 +94,7 @@ def get_extra_quesions(lang, extra_cat):
 
     return dictt
 
+# print(get_extra_quesions('uz', [1,2,3,4]))
 
 def questions_check(lang, data2):
     if lang == "de":

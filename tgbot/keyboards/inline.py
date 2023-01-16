@@ -103,12 +103,13 @@ def start_test_inl_kb(lang):
 
     return keyb
 
-def test_question_inl_kb(qid, A, B, C, D, category):
+def test_question_inl_kb(qid, category):
     return InlineKeyboardMarkup(
+        row_width=4,
         inline_keyboard=[
-            [InlineKeyboardButton(f"A: {A}", callback_data=testlar_callback.new(category, qid, "A"))],
-            [InlineKeyboardButton(f"B: {B}", callback_data=testlar_callback.new(category, qid, "B"))],
-            [InlineKeyboardButton(f"C: {C}", callback_data=testlar_callback.new(category, qid, "C"))],
-            [InlineKeyboardButton(f"D: {D}", callback_data=testlar_callback.new(category, qid, "D"))]
+            [InlineKeyboardButton("A", callback_data=testlar_callback.new(category, qid, "A")),
+            InlineKeyboardButton("B", callback_data=testlar_callback.new(category, qid, "B")),
+            InlineKeyboardButton("C", callback_data=testlar_callback.new(category, qid, "C")),
+            InlineKeyboardButton("D", callback_data=testlar_callback.new(category, qid, "D"))]
         ]
     )
