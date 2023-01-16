@@ -34,7 +34,7 @@ async def extra_categories(lang, sess: aiohttp.ClientSession):
 
 
 
-def register(chat_id, full_name, phone_number, gender, education, age, progra_language, extra_skills, resume_name, lang):
+def register(delete: bool, chat_id, full_name, phone_number, gender, education, age, progra_language, extra_skills, resume_name, lang):
     if lang == "de":
         lang = 'uz'
     url = f"http://139.162.159.187:8000/{lang}/register/"
@@ -51,8 +51,10 @@ def register(chat_id, full_name, phone_number, gender, education, age, progra_la
     ('cv',(f'{resume_name}',open(f'{resume_name}','rb'),'application/json'))
     ]
     headers = {}
-
-    response = requests.post(url, headers=headers, data=payload, files=files)
+    if not delete:
+        response = requests.post(url, headers=headers, data=payload, files=files)
+    else:
+        response = requests.delete(url, headers=headers, data=payload, files=files)
 
     return response
 
@@ -94,7 +96,7 @@ def get_extra_quesions(lang, extra_cat):
 
     return dictt
 
-# print(get_extra_quesions('uz', [1,2,3,4]))
+# print(get_extra_quesions('uz', [1,2,3,4]))    
 
 def questions_check(lang, data2):
     if lang == "de":

@@ -108,6 +108,9 @@ async def phone_orqaga(message: Message, state: FSMContext):
     fioms = await message.bot.send_message(message.chat.id, _("✍🏼 Фамилия, Исм, Шарифни киритинг.", locale=user_lang), reply_markup=orqaga_inl_kb(user_lang))
     await state.update_data(fioms=fioms.message_id)
 
+async def restart(message: Message, state: FSMContext):
+    await state.reset_state(with_data=True)
+    
 
 def register_user(dp: Dispatcher):
     dp.register_message_handler(user_start, commands=["start"], state=[None, UserInfo.registered, UserInfo.registered_and_tested])
