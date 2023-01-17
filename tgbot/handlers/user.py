@@ -6,8 +6,8 @@ from aiogram.types import Message, ContentType
 from aiogram.types.input_file import InputFile
 
 
-from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb
-from tgbot.keyboards.reply import phone_keyb, main_menu
+from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb, main_menu_inl_kb
+from tgbot.keyboards.reply import phone_keyb
 from tgbot.misc.states import UserInfo 
 from tgbot.services.api import delete_users
 from tgbot.hr_i18n import _
@@ -17,7 +17,7 @@ async def user_start(message: Message, state: FSMContext):
     user_lang = data.get('language')
     user_state = await state.get_state()
     if user_state == "UserInfo:registered":
-        await message.answer(_("🏡 Бош меню:", locale=user_lang), reply_markup=main_menu(user_lang))
+        await message.answer(_("🏡 Бош меню:", locale=user_lang), reply_markup=main_menu_inl_kb(user_lang))
     elif user_state == "UserInfo:registered_and_tested":
         await message.answer(_("✅ Иштирокингиз учун катта рахмат", locale=user_lang))
     else:
@@ -82,22 +82,17 @@ async def user_resume(message: Message, state: FSMContext):
     if message.document.file_name[-4::] in ['docx', '.doc', '.pdf'] and message.document.file_size < 15000000:
         await message.document.download(destination_file=f"{message.chat.id} resume {message.document.file_name}")
         await state.update_data(resume_name=f"{message.chat.id} resume {message.document.file_name}")
-
         data = await state.get_data()
         user_lang = data.get('language')
-
-        try:
-            await message.bot.delete_message(message.chat.id, message_id=data.get('anketams'))
-        except Exception:
-            pass
-        await message.bot.edit_message_text(_("📝 Анкетангиз:\n\n👤 ФИО: {name}\n📲 Телефон: {phone}\n📆 Ёшингиз: {age}\n📚 Маълумотингиз: {educ}\n📚 Дастурлаш тили: {prog_lang}\n🖥 Кошимча маьлумотлар: {add_info}\n📰 Резюмеингиз: {file_name}", locale=user_lang).format(
+        await message.bot.delete_message(message.chat.id, data.get('addms'))
+        await message.answer_document(document=message.document.file_id, caption=_("📝 Анкетангиз:\n\n👤 ФИО: {name}\n📲 Телефон: {phone}\n📆 Ёшингиз: {age}\n📚 Маълумотингиз: {educ}\n📚 Дастурлаш тили: {prog_lang}\n🖥 Кошимча маьлумотлар: {add_info}\n📰 Резюмеингиз: {file_name}", locale=user_lang).format(
             name=data.get('fio'),
             phone=data.get('phone'),
             age=data.get('age'),
             educ=data.get('education'),
             prog_lang=data.get('prog_lang'),
             add_info=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)])),
-            file_name=message.document.file_name), reply_markup=tasdiqlash_inl_kb(user_lang), chat_id=message.chat.id, message_id=data.get('addms'))
+            file_name=message.document.file_name), reply_markup=tasdiqlash_inl_kb(user_lang))
         await UserInfo.next()
 
 async def phone_orqaga(message: Message, state: FSMContext):
@@ -113,7 +108,6 @@ async def phone_orqaga(message: Message, state: FSMContext):
 async def restart(message: Message, state: FSMContext):
     await state.reset_state(with_data=True)
     delete_users()
-    
 
 def register_user(dp: Dispatcher):
     dp.register_message_handler(user_start, commands=["start"], state=[None, UserInfo.registered, UserInfo.registered_and_tested])

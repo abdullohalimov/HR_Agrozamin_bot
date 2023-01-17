@@ -5,33 +5,34 @@ from aiogram.types import Message,  CallbackQuery
 from tgbot.misc.states import CategoryTests, UserInfo
 from tgbot.services.api import get_questions, get_extra_quesions, questions_check
 from tgbot.keyboards.inline import start_test_inl_kb, test_question_inl_kb
-from tgbot.keyboards.callback_factory import testlar_callback
+from tgbot.keyboards.callback_factory import testlar_callback, tasdiqlash_callback
 from tgbot.hr_i18n import _
 
-async def test_start(message: Message, state: FSMContext):
-    await message.delete()
-    data = await state.get_data()
-    user_lang = data.get('language')
-    questions = get_questions(lang=user_lang, category=data.get('prog_lang_id', {}))
-    extra_questions = get_extra_quesions(lang=user_lang, extra_cat=data.get('extra_id', {}))
-    await state.update_data(questions=questions)
-    await state.update_data(extra_questions=extra_questions)
-    # await state.update_data(q_count=len(questions.keys()))
-    if data.get('extra_category', {}) == {}:
-        await message.answer(_("Тестлардан отиш учун 30 дакика вакт берилади. "\
-             "Тестлардаги саволлар {prog_lang} бойича болади", \
-            locale=user_lang).format(prog_lang=data.get('prog_lang')), \
-            reply_markup=start_test_inl_kb(user_lang))
+async def test_start(callback: CallbackQuery, state: FSMContext, callback_data: dict):
+    if callback_data.get('tanlov') == 'testni_boshlash':
+        await callback.message.delete()
+        data = await state.get_data()
+        user_lang = data.get('language')
+        questions = get_questions(lang=user_lang, category=data.get('prog_lang_id', {}))
+        extra_questions = get_extra_quesions(lang=user_lang, extra_cat=data.get('extra_id', {}))
+        await state.update_data(questions=questions)
+        await state.update_data(extra_questions=extra_questions)
+        # await state.update_data(q_count=len(questions.keys()))
+        if data.get('extra_category', {}) == {}:
+            await callback.message.answer(_("Тестлардан отиш учун 30 дакика вакт берилади. "\
+                "Тестлардаги саволлар {prog_lang} бойича болади", \
+                locale=user_lang).format(prog_lang=data.get('prog_lang')), \
+                reply_markup=start_test_inl_kb(user_lang))
 
-    else:
+        else:
 
-        await message.answer(_("Тестлардан отиш учун 30 дакика вакт берилади. "\
-            "Тестлардаги саволлар {extra_category} ва {prog_lang} бойича болади",\
-            locale=user_lang).format(prog_lang=data.get('prog_lang'), \
-            extra_category=", ".join(data.get('extra_category'))), \
-            reply_markup=start_test_inl_kb(user_lang))
+            await callback.message.answer(_("Тестлардан отиш учун 30 дакика вакт берилади. "\
+                "Тестлардаги саволлар {extra_category} ва {prog_lang} бойича болади",\
+                locale=user_lang).format(prog_lang=data.get('prog_lang'), \
+                extra_category=", ".join(data.get('extra_category'))), \
+                reply_markup=start_test_inl_kb(user_lang))
 
-    await CategoryTests.start.set()
+        await CategoryTests.start.set()
 
 async def send_question_message(state, callback, user_data, extra, questions_list, chck_tme, user_lang):
     check_time = chck_tme
@@ -127,5 +128,5 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
     
 
 def register_test_handlers(dp: Dispatcher):
-    dp.register_message_handler(test_start, text=['Тестни бошлаш', 'Testni boshlash', 'Начать тестирование'], state=UserInfo.registered)
+    dp.register_callback_query_handler(test_start, tasdiqlash_callback.filter(), state=UserInfo.registered)
     dp.register_callback_query_handler(questions_callbacks, testlar_callback.filter(), state='*')

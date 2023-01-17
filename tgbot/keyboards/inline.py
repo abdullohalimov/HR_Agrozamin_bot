@@ -113,3 +113,11 @@ def test_question_inl_kb(qid, category):
             InlineKeyboardButton("D", callback_data=testlar_callback.new(category, qid, "D"))]
         ]
     )
+
+def main_menu_inl_kb(lang):
+    return InlineKeyboardMarkup(
+        row_width=1,
+        inline_keyboard=[
+        [InlineKeyboardButton(_("Тестни бошлаш", locale=lang), callback_data=tasdiqlash_callback.new("testni_boshlash"))],
+        [InlineKeyboardButton(_("Анкетани кайта тузиш", locale=lang), callback_data=tasdiqlash_callback.new('restart'))]
+        ])
