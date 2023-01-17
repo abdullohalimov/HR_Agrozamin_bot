@@ -82,7 +82,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
     if user_state == 'CategoryTests:category_testing':
         answers['questions'][callback_data.get('id')] = callback_data.get('choice')
         if check_time.seconds / 60 > 30:
-            await callback.message.edit_text("Время закончилось")
+            await callback.message.edit_text(_("Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!", locale=user_lang))
             check_time = False
         if questions != {} and check_time:
             print(questions.keys())
@@ -105,7 +105,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
         answers['extra_questions'][callback_data.get('id')] = callback_data.get('choice')
         check_time = datetime.now() - user_data.get('test_start_time')
         if check_time.seconds / 60 > 30:
-            await callback.message.answer("Время закончилось")
+            await callback.message.edit_text(_("Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!", locale=user_lang))
             check_time = False
         if extra_questions != {} and check_time:
             await send_question_message(state, callback, user_data, extra=True, questions_list=extra_questions, chck_tme=check_time, user_lang=user_lang)
@@ -123,7 +123,8 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
                             extra_quest_count=resp['extra_questions']['count_questions'], extra_quest_true=resp['extra_questions']['count_true'])
                             )      
     await state.update_data(answers=answers)
-    await callback.answer()
+    await callback.answer(cache_time=10)
+    
 
 def register_test_handlers(dp: Dispatcher):
     dp.register_message_handler(test_start, text=['Тестни бошлаш', 'Testni boshlash', 'Начать тестирование'], state=UserInfo.registered)

@@ -6,7 +6,6 @@ import json
 async def sessionss():
     return aiohttp.ClientSession()
 
-# TODO: language implementation
 async def categories(lang, sess: aiohttp.ClientSession):
     if lang == "de":
         lang = 'uz'
@@ -19,7 +18,6 @@ async def categories(lang, sess: aiohttp.ClientSession):
             print(ret)
             return ret
 
-# TODO: language implementation
 async def extra_categories(lang, sess: aiohttp.ClientSession):
     if lang == "de":
         lang = 'uz'
@@ -31,8 +29,6 @@ async def extra_categories(lang, sess: aiohttp.ClientSession):
                 ret[response['id']] = response["extra_category_name"]
             print(ret)
             return ret
-
-
 
 def register(chat_id, full_name, phone_number, gender, education, age, progra_language, extra_skills, resume_name, lang):
     if lang == "de":
@@ -58,8 +54,6 @@ def delete_users():
     response = requests.delete(url=url, timeout=30)
     return response
 
-print(delete_users())
-
 def get_questions(lang, category):
     if lang == "de":
         lang = 'uz'
@@ -73,7 +67,6 @@ def get_questions(lang, category):
         dictt[f"{i}"] = resp[i-1]
 
     return dictt
-
 
 def get_extra_quesions(lang, extra_cat):
     if lang == "de":
@@ -98,12 +91,12 @@ def get_extra_quesions(lang, extra_cat):
 
 # print(get_extra_quesions('uz', [1,2,3,4]))    
 
-def questions_check(lang, data2):
+def questions_check(lang, data):
     if lang == "de":
         lang = 'uz'
     url = f"http://139.162.159.187:8000/{lang}/check/"
 
-    payload = json.dumps(data2)
+    payload = json.dumps(data)
     headers = {
     'Content-Type': 'application/json'
     }
@@ -116,7 +109,7 @@ def questions_check(lang, data2):
 # '44': 'B', '24': 'B', '34': 'B'}, 'extra_questions': {'3': 'B', '5': 'C', '8': 'B', '9': 'A', '10': 'B', '11': 'C', '18': 'A', '19': 'B', '20': 'B'}}
 
 # a = questions_check('ru', data)
-# print(a['questions']['count_true'])
+# # print(a['questions']['count_true'])
 # print(a['questions']['count_questions'])
 # print(a['extra_questions']['count_true'])
 # print(a['extra_questions']['count_questions'])

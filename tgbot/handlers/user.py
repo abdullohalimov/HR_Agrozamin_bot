@@ -1,7 +1,8 @@
+import os
 from traceback import print_exc
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.types import Message, Contact, ContentType, ReplyKeyboardRemove
+from aiogram.types import Message, ContentType
 from aiogram.types.input_file import InputFile
 
 
@@ -10,7 +11,6 @@ from tgbot.keyboards.reply import phone_keyb, main_menu
 from tgbot.misc.states import UserInfo 
 from tgbot.services.api import delete_users
 from tgbot.hr_i18n import _
-import os
 async def user_start(message: Message, state: FSMContext):
     await message.delete()
     data = await state.get_data()
@@ -19,7 +19,7 @@ async def user_start(message: Message, state: FSMContext):
     if user_state == "UserInfo:registered":
         await message.answer(_("🏡 Бош меню:", locale=user_lang), reply_markup=main_menu(user_lang))
     elif user_state == "UserInfo:registered_and_tested":
-        await message.answer(_("Сиз тестлардан отиб болдингиз, натижасини кутинг", locale=user_lang))
+        await message.answer(_("✅ Иштирокингиз учун катта рахмат", locale=user_lang))
     else:
         # await message.answer_photo(photo=InputFile(r'C:\Users\alimov.a\Desktop\hrbot (2)\hrbot\tgbot\photos\start.jpg'))
         await message.answer("Ассалому алайкум ! Келинг, аввал хизмат кўрсатиш тилини танлаб олайлик.\n\nAssalomu alaykum ! Keling, avval xizmat ko'rsatish tilini tanlab olaylik.\n\nЗдравствуйте ! Давайте для начала выберим язык обслуживания.", reply_markup=language_inl_kb)
@@ -56,7 +56,7 @@ async def user_phone(message: Message, state: FSMContext):
     try:
         phone = message.contact.phone_number.replace('+', "")
         phone = phone.replace('', "")
-        phonems = await message.answer(_("{phone} раками кабул килинди\nЖинсингиз:", locale=user_lang).format(phone=phone), reply_markup=jins_inl_kb(user_lang))
+        phonems = await message.answer(_("Жинсингиз:", locale=user_lang).format(phone=phone), reply_markup=jins_inl_kb(user_lang))
         await state.update_data(phone=phone[3:])
         await UserInfo.next()
 
@@ -66,7 +66,7 @@ async def user_phone(message: Message, state: FSMContext):
             phone = phone.replace('', "")
             if len(phone) == 12:
                 await state.update_data(phone=phone[3:])
-                phonems = await message.answer(_("{phone} раками кабул килинди\nЖинсингиз:", locale=user_lang).format(phone=phone), reply_markup=jins_inl_kb(user_lang))
+                phonems = await message.answer(_("Жинсингиз:", locale=user_lang).format(phone=phone), reply_markup=jins_inl_kb(user_lang))
                 await UserInfo.next()
             else:
                 raise Exception
@@ -78,25 +78,27 @@ async def user_phone(message: Message, state: FSMContext):
 
 async def user_resume(message: Message, state: FSMContext):
     await message.delete()
-    await message.document.download(destination_file=f"{message.chat.id} resume {message.document.file_name}")
-    await state.update_data(resume_name=f"{message.chat.id} resume {message.document.file_name}")
+    print(message.document.file_size)
+    if message.document.file_name[-4::] in ['docx', '.doc', '.pdf'] and message.document.file_size < 15000000:
+        await message.document.download(destination_file=f"{message.chat.id} resume {message.document.file_name}")
+        await state.update_data(resume_name=f"{message.chat.id} resume {message.document.file_name}")
 
-    data = await state.get_data()
-    user_lang = data.get('language')
+        data = await state.get_data()
+        user_lang = data.get('language')
 
-    try:
-        await message.bot.delete_message(message.chat.id, message_id=data.get('anketams'))
-    except Exception:
-        pass
-    await message.bot.edit_message_text(_("Анкетангиз тузилди:\nФИО: {name}\nТелефон: {phone}\nЁшингиз: {age}\nМаълумотингиз: {educ}\nДастурлаш тили: {prog_lang}\nКошимча маьлумотлар: {add_info}\nРезюмеингиз: {file_name}", locale=user_lang).format(
-        name=data.get('fio'),
-        phone=data.get('phone'),
-        age=data.get('age'),
-        educ=data.get('education'),
-        prog_lang=data.get('prog_lang'),
-        add_info=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)])),
-        file_name=message.document.file_name), reply_markup=tasdiqlash_inl_kb(user_lang), chat_id=message.chat.id, message_id=data.get('addms'))
-    await UserInfo.next()
+        try:
+            await message.bot.delete_message(message.chat.id, message_id=data.get('anketams'))
+        except Exception:
+            pass
+        await message.bot.edit_message_text(_("📝 Анкетангиз:\n\n👤 ФИО: {name}\n📲 Телефон: {phone}\n📆 Ёшингиз: {age}\n📚 Маълумотингиз: {educ}\n📚 Дастурлаш тили: {prog_lang}\n🖥 Кошимча маьлумотлар: {add_info}\n📰 Резюмеингиз: {file_name}", locale=user_lang).format(
+            name=data.get('fio'),
+            phone=data.get('phone'),
+            age=data.get('age'),
+            educ=data.get('education'),
+            prog_lang=data.get('prog_lang'),
+            add_info=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)])),
+            file_name=message.document.file_name), reply_markup=tasdiqlash_inl_kb(user_lang), chat_id=message.chat.id, message_id=data.get('addms'))
+        await UserInfo.next()
 
 async def phone_orqaga(message: Message, state: FSMContext):
     data = await state.get_data()

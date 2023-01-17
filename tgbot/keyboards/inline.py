@@ -16,8 +16,8 @@ def jins_inl_kb(lang):
     return InlineKeyboardMarkup(
     row_width=1,
     inline_keyboard=[
-    [InlineKeyboardButton(_("👨 Эркак", locale=lang), callback_data=jins_callback.new('E'))], 
-    [InlineKeyboardButton(_("👩 Аёл", locale=lang), callback_data=jins_callback.new('A'))],
+    [InlineKeyboardButton(_("Эркак", locale=lang), callback_data=jins_callback.new('E'))], 
+    [InlineKeyboardButton(_("Аёл", locale=lang), callback_data=jins_callback.new('A'))],
     [InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
     ])
 
