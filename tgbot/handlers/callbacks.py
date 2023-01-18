@@ -1,15 +1,15 @@
 from aiogram import Dispatcher
 from aiogram.types import CallbackQuery, ReplyKeyboardRemove
 from aiogram.dispatcher import FSMContext
-from tgbot.misc.states import UserInfo
+from tgbot.misc.states import UserInfo, CategoryTests
 from tgbot.keyboards.callback_factory import lang_callback, jins_callback, programming_lang_callback, \
      education_callback, tasdiqlash_callback, yoshlar_callback, extra_lang_callback
 from tgbot.keyboards.inline import prog_languages_kb, language_inl_kb, orqaga_inl_kb, yosh_tanlash_inl_kb, \
-    education_inl_kb, jins_inl_kb, extra_skills_kb, qayta_tuzish_inl_kb, main_menu_inl_kb
+    education_inl_kb, jins_inl_kb, extra_skills_kb, qayta_tuzish_inl_kb, main_menu_inl_kb, start_test_inl_kb
 from tgbot.keyboards.reply  import phone_keyb
 from tgbot.hr_i18n import _
 import os
-from tgbot.services.api import register
+from tgbot.services.api import get_questions, get_extra_quesions, register 
 
 async def language_callbacks(callback: CallbackQuery, state: FSMContext, callback_data: dict):
     if callback_data.get('language') == "lotin_uz":
@@ -105,7 +105,8 @@ async def tasdiqlash_callbacks(c: CallbackQuery, state: FSMContext, callback_dat
             await UserInfo.registered.set()
         else:
             print(dict(reg_req.json()).values())
-            await c.message.edit_text(_("Хатолик!\nБу телефон раками аввал ройхатдан отказилган\nИлтимос, анкетани кайта толдиринг!", locale=user_lang), reply_markup=qayta_tuzish_inl_kb(data.get('lang')))
+            await c.message.delete()
+            await c.message.answer(_("Хатолик!\nБу телефон раками аввал ройхатдан отказилган\nИлтимос, анкетани кайта толдиринг!", locale=user_lang), reply_markup=qayta_tuzish_inl_kb(data.get('lang')))
         
         # await c.message.answer(_("Бош меню:"), reply_markup=main_menu_keyb)
     elif callback_data.get('tanlov') == "restart":
@@ -159,12 +160,52 @@ async def tasdiqlash_callbacks(c: CallbackQuery, state: FSMContext, callback_dat
             await c.message.delete()
             addms = await c.message.answer(_("Дастурлаш тили: {prog_lang}\nКошимча билимлар: {extra_categories}\n\n📰 Резюмеингизни юборинг:\n\n❗️ Резюмелар фақат DOC, DOCX, PDF форматида қабул қилинади. Эътибор беринг, бир вакансияга бир маротаба резюме юборишингиз мумкин. Файл ҳажми 10 Мб дан ортмаслиги лозим.", locale=user_lang).format(prog_lang=data.get('prog_lang'), extra_categories=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)]))), reply_markup=orqaga_inl_kb(user_lang))
             await state.update_data(addms=addms.message_id)
-
+        if statee == 'CategoryTests:start':
+            await c.message.edit_text(_("🏡 Бош меню:", locale=user_lang), reply_markup=main_menu_inl_kb(user_lang))
+            await UserInfo.registered.set()
     if callback_data.get('tanlov') == "extra_tasdiqlash":
         addms = await c.message.edit_text(_("Дастурлаш тили: {prog_lang}\nКошимча билимлар: {extra_categories}\n\n📰 Резюмеингизни юборинг:\n\n❗️ Резюмелар фақат DOC, DOCX, PDF форматида қабул қилинади. Эътибор беринг, бир вакансияга бир маротаба резюме юборишингиз мумкин. Файл ҳажми 10 Мб дан ортмаслиги лозим.", locale=user_lang).format(prog_lang=data.get('prog_lang'), extra_categories=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)]))), reply_markup=orqaga_inl_kb(user_lang))
         await state.update_data(addms=addms.message_id)
         await UserInfo.next()
 
+    if callback_data.get('tanlov') == 'testni_boshlash':
+        # await c.message.delete()
+        data = await state.get_data()
+        user_lang = data.get('language')
+        questions = get_questions(lang=user_lang, category=data.get('prog_lang_id', {}))
+        extra_questions = get_extra_quesions(lang=user_lang, extra_cat=data.get('extra_id', {}))
+        await state.update_data(all_questions=len(list(questions.keys())) + len(list(extra_questions.keys())))
+        await state.update_data(questions=questions)
+        await state.update_data(extra_questions=extra_questions)
+        data = await state.get_data()
+
+        if data.get('extra_category', {}) == {}:
+            await c.message.edit_text(_("🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз мумкин.\n\n"\
+            "📚 Тeстлар сони {q_count} та. Тeстда {prog_lang} бойича саволлар бўлади. \n\n"\
+            "🕘 {q_count} та саволга жами {time_count} дақиқа вақт бeрилади. \n\n"\
+            "❗️ Тeстни бошлаганингиздан кeйин {time_count} дақиқа ичида тугатмасангиз тeст натижаси ҳисобланмайди. \n\n"\
+            "Омад ёр бўлсин !", \
+                locale=user_lang).format(q_count=len(list(questions.keys())), \
+                time_count=data.get('all_questions', 40), \
+                prog_lang=data.get('prog_lang')), \
+                reply_markup=start_test_inl_kb(user_lang))
+        else:
+            await c.message.edit_text(_("🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз мумкин.\n\n" \
+                "📚 Тeстлар сони {q_count} та. Тeстда {extra_category} ва {prog_lang} бойича саволлар бўлади.\n\n" \
+                "🕘 {q_count} та саволга жами {time_count} дақиқа вақт бeрилади.\n\n" \
+                "❗️ Тeстни бошлаганингиздан кeйин {time_count} дақиқа ичида тугатмасангиз тeст натижаси ҳисобланмайди. \n\n"\
+                "Омад ёр бўлсин ! ", \
+                locale=user_lang).format(prog_lang=data.get('prog_lang'), \
+                time_count=data.get('all_questions', 40), \
+                q_count=len(list(questions.keys())) + len(list(extra_questions.keys())),\
+                extra_category=", ".join(data.get('extra_category'))), \
+                reply_markup=start_test_inl_kb(user_lang))
+
+        await CategoryTests.start.set()
+
+
+
+    
 def register_callbacks(dp: Dispatcher):
     dp.register_callback_query_handler(language_callbacks, lang_callback.filter(), state="*")  
     dp.register_callback_query_handler(jins_callbacks, jins_callback.filter(), state=UserInfo.jins)
@@ -173,4 +214,5 @@ def register_callbacks(dp: Dispatcher):
     dp.register_callback_query_handler(prog_lang_callbacks, programming_lang_callback.filter(), state=UserInfo.prog_language)
     dp.register_callback_query_handler(tasdiqlash_callbacks, tasdiqlash_callback.filter(), state='*')
     dp.register_callback_query_handler(extra_skills, extra_lang_callback.filter(), state=UserInfo.additional)
+
     

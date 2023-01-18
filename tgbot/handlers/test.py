@@ -3,49 +3,25 @@ from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message,  CallbackQuery
 from tgbot.misc.states import CategoryTests, UserInfo
-from tgbot.services.api import get_questions, get_extra_quesions, questions_check
+from tgbot.services.api import questions_check
 from tgbot.keyboards.inline import start_test_inl_kb, test_question_inl_kb
 from tgbot.keyboards.callback_factory import testlar_callback, tasdiqlash_callback
 from tgbot.hr_i18n import _
 
-async def test_start(callback: CallbackQuery, state: FSMContext, callback_data: dict):
-    if callback_data.get('tanlov') == 'testni_boshlash':
-        await callback.message.delete()
-        data = await state.get_data()
-        user_lang = data.get('language')
-        questions = get_questions(lang=user_lang, category=data.get('prog_lang_id', {}))
-        extra_questions = get_extra_quesions(lang=user_lang, extra_cat=data.get('extra_id', {}))
-        await state.update_data(questions=questions)
-        await state.update_data(extra_questions=extra_questions)
-        # await state.update_data(q_count=len(questions.keys()))
-        if data.get('extra_category', {}) == {}:
-            await callback.message.answer(_("Тестлардан отиш учун 30 дакика вакт берилади. "\
-                "Тестлардаги саволлар {prog_lang} бойича болади", \
-                locale=user_lang).format(prog_lang=data.get('prog_lang')), \
-                reply_markup=start_test_inl_kb(user_lang))
-
-        else:
-
-            await callback.message.answer(_("Тестлардан отиш учун 30 дакика вакт берилади. "\
-                "Тестлардаги саволлар {extra_category} ва {prog_lang} бойича болади",\
-                locale=user_lang).format(prog_lang=data.get('prog_lang'), \
-                extra_category=", ".join(data.get('extra_category'))), \
-                reply_markup=start_test_inl_kb(user_lang))
-
-        await CategoryTests.start.set()
 
 async def send_question_message(state, callback, user_data, extra, questions_list, chck_tme, user_lang):
     check_time = chck_tme
-    time = _("Колган вакт: {time} дакика", locale=user_lang).format(time=int(30 - check_time.seconds / 60))
+    user_time = user_data.get("all_questions", 40)
+    time = _("⏳ Сизда қолган вақт: {min} min. {sec} sec.", locale=user_lang).format(min=int(user_time - check_time.seconds / 60), sec=60 - int(chck_tme.total_seconds() - int(chck_tme.total_seconds() / 60) * 60))
     if not extra:
         questions = questions_list
         cur_question = list(questions.keys())[0]
         question = questions.pop(list(questions.keys())[0])
         try:
-            await callback.message.edit_text(f"{user_data.get('prog_lang')}\n{cur_question}: {question['question']}\n\nA: {question['A']}\nB: {question['B']}\nC: {question['C']}\nD: {question['D']}\n\n{time}", \
+            await callback.message.edit_text(f"<b>{user_data.get('prog_lang')}</b>\n{cur_question}. {question['question']}\n\nA) {question['A']}\nB) {question['B']}\nC) {question['C']}\nD) {question['D']}\n\n<b>{time}</b>", \
                 parse_mode='HTML', reply_markup=test_question_inl_kb(qid=question['id'], category=question['category']))
         except Exception:
-            await callback.message.edit_text(f"{user_data.get('prog_lang')}\n{cur_question}: {question['question']}\n\nA: {question['A']}\nB: {question['B']}\nC: {question['C']}\nD: {question['D']}\n\n{time}", \
+            await callback.message.edit_text(f"*{user_data.get('prog_lang')}*\n{cur_question}. {question['question']}\n\nA) {question['A']}\nB) {question['B']}\nC) {question['C']}\nD) {question['D']}\n\n*{time}*", \
                 parse_mode='Markdown', reply_markup=test_question_inl_kb(qid=question['id'], category=question['category']))
         
         await state.update_data(questions=questions)
@@ -56,11 +32,11 @@ async def send_question_message(state, callback, user_data, extra, questions_lis
         cur_extra_question = list(extra_questions.keys())[0]
         extra_question = extra_questions.pop(list(extra_questions.keys())[0])
         try:
-            await callback.message.edit_text(f"{', '.join(user_data.get('extra_category'))}\n{cur_extra_question}: {extra_question['question']}\n\nA: {extra_question['A']}\nB: {extra_question['B']}\nC: {extra_question['C']}\nD: {extra_question['D']}\n\n{time}", \
+            await callback.message.edit_text(f"<b>{', '.join(user_data.get('extra_category'))}</b>\n{cur_extra_question}. {extra_question['question']}\n\nA) {extra_question['A']}\nB) {extra_question['B']}\nC) {extra_question['C']}\nD) {extra_question['D']}\n\n<b>{time}</b>", \
                         parse_mode='HTML', reply_markup=test_question_inl_kb(qid=extra_question['id'], \
                         category=extra_question['extra_category']))
         except Exception:
-            await callback.message.edit_text(f"{', '.join(user_data.get('extra_category'))}\n{cur_extra_question}: {extra_question['question']}\n\nA: {extra_question['A']}\nB: {extra_question['B']}\nC: {extra_question['C']}\nD: {extra_question['D']}\n\n{time}", \
+            await callback.message.edit_text(f"*{', '.join(user_data.get('extra_category'))}*\n{cur_extra_question}. {extra_question['question']}\n\nA) {extra_question['A']}\nB) {extra_question['B']}\nC) {extra_question['C']}\nD) {extra_question['D']}\n\n*{time}*", \
                         parse_mode='Markdown', reply_markup=test_question_inl_kb(qid=extra_question['id'], \
                         category=extra_question['extra_category']))
         await state.update_data(extra_questions=extra_questions)
@@ -82,7 +58,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
 
     if user_state == 'CategoryTests:category_testing':
         answers['questions'][callback_data.get('id')] = callback_data.get('choice')
-        if check_time.seconds / 60 > 30:
+        if check_time.seconds / 60 > user_data.get('all_questions'):
             await callback.message.edit_text(_("Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!", locale=user_lang))
             check_time = False
         if questions != {} and check_time:
@@ -105,7 +81,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
     if user_state == 'CategoryTests:extra_testing':
         answers['extra_questions'][callback_data.get('id')] = callback_data.get('choice')
         check_time = datetime.now() - user_data.get('test_start_time')
-        if check_time.seconds / 60 > 30:
+        if check_time.seconds / 60 > user_data.get('all_questions'):
             await callback.message.edit_text(_("Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!", locale=user_lang))
             check_time = False
         if extra_questions != {} and check_time:
@@ -128,5 +104,4 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
     
 
 def register_test_handlers(dp: Dispatcher):
-    dp.register_callback_query_handler(test_start, tasdiqlash_callback.filter(), state=UserInfo.registered)
     dp.register_callback_query_handler(questions_callbacks, testlar_callback.filter(), state='*')

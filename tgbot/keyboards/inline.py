@@ -97,9 +97,13 @@ async def extra_skills_kb(lang, categories2 = dict()):
 
 def start_test_inl_kb(lang):
     keyb = InlineKeyboardMarkup(
-        inline_keyboard=[[
-            InlineKeyboardButton(_("Тестни бошлаш", locale=lang), callback_data=testlar_callback.new('start', 'start', 'start'))
-        ]])
+        inline_keyboard=[
+            [InlineKeyboardButton(_("🔄 Анкетани кайта тузиш", locale=lang), callback_data=tasdiqlash_callback.new('restart'))],
+            [InlineKeyboardButton(_("▶️ Тестни бошлаш", locale=lang), callback_data=testlar_callback.new("start", 'start', 'start'))],
+            [InlineKeyboardButton(_("✖️ Бекор килиш", locale=lang), callback_data=tasdiqlash_callback.new('ortga'))],
+            
+            
+            ])
 
     return keyb
 

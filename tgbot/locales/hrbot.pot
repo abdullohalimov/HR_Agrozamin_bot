@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-17 13:03+0500\n"
+"POT-Creation-Date: 2023-01-18 17:48+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,25 +25,19 @@ msgid ""
 "✍🏼 Фамилия, Исм, Шарифни киритинг."
 msgstr ""
 
-#: handlers/callbacks.py:45 handlers/callbacks.py:137
+#: handlers/callbacks.py:44 handlers/callbacks.py:142
 msgid "Ёшингиз:"
 msgstr ""
 
-#: handlers/callbacks.py:53 handlers/callbacks.py:140
+#: handlers/callbacks.py:52 handlers/callbacks.py:145
 msgid "Маълумотингиз:"
 msgstr ""
 
-#: handlers/callbacks.py:61 handlers/callbacks.py:144
+#: handlers/callbacks.py:60 handlers/callbacks.py:149
 msgid "Қайси дастурлаш тили бўйича ўз фаолиятингизни юритишни истайсиз ?"
 msgstr ""
 
-#: handlers/callbacks.py:69
-msgid ""
-"Қўшимча билимларингиз:\n"
-"Бир нечтасини белгилашингиз мумкин"
-msgstr ""
-
-#: handlers/callbacks.py:88
+#: handlers/callbacks.py:69 handlers/callbacks.py:88
 msgid ""
 "Қўшимча билимларингиз:\n"
 "Бир нечтасини белгилашингиз мумкин\n"
@@ -55,36 +49,37 @@ msgstr ""
 msgid "🏡 Бош меню:"
 msgstr ""
 
-#: handlers/callbacks.py:108
+#: handlers/callbacks.py:109
 msgid ""
 "Хатолик!\n"
 "Бу телефон раками аввал ройхатдан отказилган\n"
 "Илтимос, анкетани кайта толдиринг!"
 msgstr ""
 
-#: handlers/callbacks.py:115
+#: handlers/callbacks.py:120
 msgid "Тилни танлаш"
 msgstr ""
 
-#: handlers/callbacks.py:129 handlers/user.py:35
+#: handlers/callbacks.py:134 handlers/user.py:35
 msgid ""
 "Телефон рақамингизни +998********* шаклда юборинг, ёки \"📱 Рақам юбориш\""
 " тугмасини босинг:"
 msgstr ""
 
-#: handlers/callbacks.py:133 handlers/user.py:59 handlers/user.py:69
+#: handlers/callbacks.py:138 handlers/user.py:59 handlers/user.py:69
 msgid "Жинсингиз:"
 msgstr ""
 
-#: handlers/callbacks.py:147
+#: handlers/callbacks.py:152
 msgid ""
 "Қўшимча билимларингиз:\n"
 "Бир нечтасини белгилашингиз мумкин:"
 msgstr ""
 
-#: handlers/callbacks.py:155 handlers/callbacks.py:159
+#: handlers/callbacks.py:161 handlers/callbacks.py:165
 msgid ""
-"{extra_categories}\n"
+"Дастурлаш тили: {prog_lang}\n"
+"Кошимча билимлар: {extra_categories}\n"
 "\n"
 "📰 Резюмеингизни юборинг:\n"
 "\n"
@@ -93,31 +88,50 @@ msgid ""
 " 10 Мб дан ортмаслиги лозим."
 msgstr ""
 
-#: handlers/callbacks.py:155 handlers/callbacks.py:159 handlers/user.py:99
+#: handlers/callbacks.py:161 handlers/callbacks.py:165 handlers/user.py:94
 msgid "Йок"
 msgstr ""
 
-#: handlers/test.py:21
+#: handlers/callbacks.py:181
 msgid ""
-"Тестлардан отиш учун 30 дакика вакт берилади. Тестлардаги саволлар "
-"{prog_lang} бойича болади"
+"🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз "
+"мумкин.\n"
+"\n"
+"📚 Тeстлар сони {q_count} та. Тeстда {prog_lang} бойича саволлар бўлади. \n"
+"\n"
+"🕘 {q_count} та саволга жами {time_count} дақиқа вақт бeрилади. \n"
+"\n"
+"❗️ Тeстни бошлаганингиздан кeйин {time_count} дақиқа ичида тугатмасангиз "
+"тeст натижаси ҳисобланмайди. \n"
+"\n"
+"Омад ёр бўлсин !"
 msgstr ""
 
-#: handlers/test.py:28
+#: handlers/callbacks.py:191
 msgid ""
-"Тестлардан отиш учун 30 дакика вакт берилади. Тестлардаги саволлар "
-"{extra_category} ва {prog_lang} бойича болади"
+"🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз "
+"мумкин.\n"
+"\n"
+"📚 Тeстлар сони {q_count} та. Тeстда {extra_category} ва {prog_lang} "
+"бойича саволлар бўлади.\n"
+"\n"
+"🕘 {q_count} та саволга жами {time_count} дақиқа вақт бeрилади.\n"
+"\n"
+"❗️ Тeстни бошлаганингиздан кeйин {time_count} дақиқа ичида тугатмасангиз "
+"тeст натижаси ҳисобланмайди. \n"
+"\n"
+"Омад ёр бўлсин ! "
 msgstr ""
 
-#: handlers/test.py:38
-msgid "Колган вакт: {time} дакика"
+#: handlers/test.py:15
+msgid "⏳ Сизда қолган вақт: {min} min. {sec} sec."
 msgstr ""
 
-#: handlers/test.py:85 handlers/test.py:108
+#: handlers/test.py:62 handlers/test.py:85
 msgid "Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!"
 msgstr ""
 
-#: handlers/test.py:98
+#: handlers/test.py:75
 msgid ""
 "{prog_lang} бойича саволлар сони: {quest_count}\n"
 "Тогри топилган жавоблар сони: {quest_true}\n"
@@ -125,7 +139,7 @@ msgid ""
 "Тест натижалари жонатилди, мутахассислар жавобини кутинг"
 msgstr ""
 
-#: handlers/test.py:116
+#: handlers/test.py:93
 msgid ""
 "{prog_lang} бойича саволлар сони: {quest_count}\n"
 "Тогри топилган жавоблар сони: {quest_true}\n"
@@ -157,7 +171,7 @@ msgid ""
 "юбориш\" тугмасини босинг:"
 msgstr ""
 
-#: handlers/user.py:93
+#: handlers/user.py:88
 msgid ""
 "📝 Анкетангиз:\n"
 "\n"
@@ -170,7 +184,7 @@ msgid ""
 "📰 Резюмеингиз: {file_name}"
 msgstr ""
 
-#: handlers/user.py:110
+#: handlers/user.py:105
 msgid "✍🏼 Фамилия, Исм, Шарифни киритинг."
 msgstr ""
 
@@ -220,11 +234,23 @@ msgstr ""
 msgid "✅Тасдиклаш"
 msgstr ""
 
-#: keyboards/inline.py:61 keyboards/reply.py:15
+#: keyboards/inline.py:61 keyboards/inline.py:126
 msgid "Анкетани кайта тузиш"
 msgstr ""
 
-#: keyboards/inline.py:101 keyboards/reply.py:14
+#: keyboards/inline.py:101
+msgid "🔄 Анкетани кайта тузиш"
+msgstr ""
+
+#: keyboards/inline.py:102
+msgid "▶️ Тестни бошлаш"
+msgstr ""
+
+#: keyboards/inline.py:103
+msgid "✖️ Бекор килиш"
+msgstr ""
+
+#: keyboards/inline.py:125
 msgid "Тестни бошлаш"
 msgstr ""
 
