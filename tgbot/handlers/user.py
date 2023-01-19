@@ -77,7 +77,6 @@ async def user_phone(message: Message, state: FSMContext):
     await state.update_data(phonems=phonems.message_id)
 
 async def user_resume(message: Message, state: FSMContext):
-    await message.delete()
     print(message.document.file_size)
     if message.document.file_name[-4::] in ['docx', '.doc', '.pdf'] and message.document.file_size < 15000000:
         await message.document.download(destination_file=f"{message.chat.id} resume {message.document.file_name}")
@@ -97,6 +96,8 @@ async def user_resume(message: Message, state: FSMContext):
             add_info=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)])),
             file_name=message.document.file_name), reply_markup=tasdiqlash_inl_kb(user_lang))
         await UserInfo.next()
+    await message.delete()
+
 
 async def phone_orqaga(message: Message, state: FSMContext):
     data = await state.get_data()
