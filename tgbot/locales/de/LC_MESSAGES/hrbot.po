@@ -171,7 +171,7 @@ msgstr ""
 
 #: handlers/test.py:15
 msgid "⏳ Сизда қолган вақт: {min} min. {sec} sec."
-msgstr "⏳ Szida qolgan vaqt: {min} min. {sec} sec."
+msgstr "⏳ Sizda qolgan vaqt: {min} min. {sec} sec."
 
 #: handlers/test.py:62 handlers/test.py:85
 msgid "Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!"
