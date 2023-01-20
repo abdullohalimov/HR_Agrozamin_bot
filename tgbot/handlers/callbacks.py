@@ -5,7 +5,7 @@ from tgbot.misc.states import UserInfo, CategoryTests
 from tgbot.keyboards.callback_factory import lang_callback, jins_callback, programming_lang_callback, \
      education_callback, tasdiqlash_callback, yoshlar_callback, extra_lang_callback
 from tgbot.keyboards.inline import prog_languages_kb, language_inl_kb, orqaga_inl_kb, yosh_tanlash_inl_kb, \
-    education_inl_kb, jins_inl_kb, extra_skills_kb, qayta_tuzish_inl_kb, main_menu_inl_kb, start_test_inl_kb
+    education_inl_kb, jins_inl_kb, extra_skills_kb, qayta_tuzish_inl_kb, main_menu_inl_kb, start_test_inl_kb, lang_back_inl_kb
 from tgbot.keyboards.reply  import phone_keyb
 from tgbot.hr_i18n import _
 import os
@@ -28,7 +28,7 @@ async def language_callbacks(callback: CallbackQuery, state: FSMContext, callbac
     await UserInfo.first()
     data = await state.get_data()
     user_lang = data.get('language')
-    fioms = await callback.message.answer(_("Бош иш оринларини кориш ва тестлардан отиш учун озингиз хакингиздаги маълумотларни киритингишингиз керак.\n\n✍🏼 Фамилия, Исм, Шарифни киритинг.", locale=user_lang), reply_markup=orqaga_inl_kb(user_lang))
+    fioms = await callback.message.answer(_("Бош иш оринларини кориш ва тестлардан отиш учун озингиз хакингиздаги маълумотларни киритингишингиз керак.\n\n✍🏼 Фамилия, Исм, Шарифни киритинг.", locale=user_lang), reply_markup=lang_back_inl_kb(user_lang))
     await state.update_data(fioms=fioms.message_id)
     await callback.answer()
 
@@ -153,10 +153,10 @@ async def tasdiqlash_callbacks(c: CallbackQuery, state: FSMContext, callback_dat
             await state.update_data(addms=addms.message_id)
         if statee == 'UserInfo:final':
             await UserInfo.previous()
-            try:
-                os.remove(data.get('resume_name'))
-            except Exception:
-                pass
+            # try:
+            #     os.remove(data.get('resume_name'))
+            # except Exception:
+            #     pass
             await c.message.delete()
             addms = await c.message.answer(_("Дастурлаш тили: {prog_lang}\nКошимча билимлар: {extra_categories}\n\n📰 Резюмеингизни юборинг:\n\n❗️ Резюмелар фақат DOC, DOCX, PDF форматида қабул қилинади. Эътибор беринг, бир вакансияга бир маротаба резюме юборишингиз мумкин. Файл ҳажми 10 Мб дан ортмаслиги лозим.", locale=user_lang).format(prog_lang=data.get('prog_lang'), extra_categories=', '.join(data.get('extra_category', [_("Йок", locale=user_lang)]))), reply_markup=orqaga_inl_kb(user_lang))
             await state.update_data(addms=addms.message_id)

@@ -6,7 +6,7 @@ from aiogram.types import Message, ContentType
 from aiogram.types.input_file import InputFile
 
 
-from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb, main_menu_inl_kb
+from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb, main_menu_inl_kb, lang_back_inl_kb
 from tgbot.keyboards.reply import phone_keyb
 from tgbot.misc.states import UserInfo 
 from tgbot.services.api import delete_users
@@ -40,7 +40,7 @@ async def user_fio(message: Message, state: FSMContext):
             await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('fioms'))
         except:
             pass
-        fioms = await message.answer(_("❌  Фамилия, Исм, Шариф хато киритилди\n\n✅ Алийев Али Алийевич\n\n✍🏼 Фамилия, Исм, Шарифингизни қайтадан киритинг.", locale=user_lang), reply_markup=orqaga_inl_kb(user_lang))    
+        fioms = await message.answer(_("❌  Фамилия, Исм, Шариф хато киритилди\n\n✅ Алийев Али Алийевич\n\n✍🏼 Фамилия, Исм, Шарифингизни қайтадан киритинг.", locale=user_lang), reply_markup=lang_back_inl_kb(user_lang))    
         await state.update_data(fioms=fioms.message_id)
     
 async def user_phone(message: Message, state: FSMContext):
@@ -79,15 +79,15 @@ async def user_phone(message: Message, state: FSMContext):
 async def user_resume(message: Message, state: FSMContext):
     print(message.document.file_size)
     if message.document.file_name[-4::] in ['docx', '.doc', '.pdf'] and message.document.file_size < 15000000:
-        await message.document.download(destination_file=f"{message.chat.id} resume {message.document.file_name}")
-        # await state.update_data(resume_name=f"{message.chat.id} resume {message.document.file_name}")
         data = await state.get_data()
         user_lang = data.get('language')
+        await message.document.download(destination_file=f"{message.chat.id} resume {message.document.file_name}")
+        await state.update_data(resume_name=f"{message.chat.id} resume {message.document.file_name}")
         try:
             await message.bot.delete_message(message.chat.id, data.get('addms'))
         except Exception:
             pass
-        await message.answer_document(document=message.document.file_id, caption=_("📝 Анкетангиз:\n\n👤 ФИО: {name}\n📲 Телефон: {phone}\n📆 Ёшингиз: {age}\n📚 Маълумотингиз: {educ}\n📚 Дастурлаш тили: {prog_lang}\n🖥 Кошимча маьлумотлар: {add_info}\n📰 Резюмеингиз: {file_name}", locale=user_lang).format( \
+        await message.answer_document(document=message.document.file_id, caption=_("📝 Анкетангиз:\n\n👤 ФИО: {name}\n📲 Телефон: {phone}\n📆 Ёшингиз: {age}\n📚 Маълумотингиз: {educ}\n📚 Дастурлаш тили: {prog_lang}\n🖥 Кошимча маьлумотлар: {add_info}\n📰 Резюмеингиз: {file_name}", locale=user_lang).format(
             name=data.get('fio'),
             phone=data.get('phone'),
             age=data.get('age'),
@@ -98,7 +98,6 @@ async def user_resume(message: Message, state: FSMContext):
         await UserInfo.next()
     await message.delete()
 
-
 async def phone_orqaga(message: Message, state: FSMContext):
     data = await state.get_data()
     user_lang = data.get('language')
@@ -106,7 +105,7 @@ async def phone_orqaga(message: Message, state: FSMContext):
     await UserInfo.previous()
     await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('phonems'))
     await message.delete()
-    fioms = await message.bot.send_message(message.chat.id, _("✍🏼 Фамилия, Исм, Шарифни киритинг.", locale=user_lang), reply_markup=orqaga_inl_kb(user_lang))
+    fioms = await message.bot.send_message(message.chat.id, _("✍🏼 Фамилия, Исм, Шарифни киритинг.", locale=user_lang), reply_markup=lang_back_inl_kb(user_lang))
     await state.update_data(fioms=fioms.message_id)
 
 async def restart(message: Message, state: FSMContext):

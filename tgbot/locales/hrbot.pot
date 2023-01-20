@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-18 17:48+0500\n"
+"POT-Creation-Date: 2023-01-20 15:07+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid ""
 "Танланган: {data}"
 msgstr ""
 
-#: handlers/callbacks.py:104 handlers/user.py:20
+#: handlers/callbacks.py:104 handlers/callbacks.py:164 handlers/user.py:20
 msgid "🏡 Бош меню:"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgid ""
 "Бир нечтасини белгилашингиз мумкин:"
 msgstr ""
 
-#: handlers/callbacks.py:161 handlers/callbacks.py:165
+#: handlers/callbacks.py:161 handlers/callbacks.py:167
 msgid ""
 "Дастурлаш тили: {prog_lang}\n"
 "Кошимча билимлар: {extra_categories}\n"
@@ -88,11 +88,11 @@ msgid ""
 " 10 Мб дан ортмаслиги лозим."
 msgstr ""
 
-#: handlers/callbacks.py:161 handlers/callbacks.py:165 handlers/user.py:94
+#: handlers/callbacks.py:161 handlers/callbacks.py:167 handlers/user.py:96
 msgid "Йок"
 msgstr ""
 
-#: handlers/callbacks.py:181
+#: handlers/callbacks.py:183
 msgid ""
 "🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз "
 "мумкин.\n"
@@ -107,7 +107,7 @@ msgid ""
 "Омад ёр бўлсин !"
 msgstr ""
 
-#: handlers/callbacks.py:191
+#: handlers/callbacks.py:193
 msgid ""
 "🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз "
 "мумкин.\n"
@@ -123,15 +123,23 @@ msgid ""
 "Омад ёр бўлсин ! "
 msgstr ""
 
-#: handlers/test.py:15
+#: handlers/test.py:16
 msgid "⏳ Сизда қолган вақт: {min} min. {sec} sec."
 msgstr ""
 
-#: handlers/test.py:62 handlers/test.py:85
+#: handlers/test.py:48
+msgid "Дастурлаш тили саволларига берилган жавоблар:\n"
+msgstr ""
+
+#: handlers/test.py:54
+msgid "Кошимча билимлар саволларига берилган жавоблар:\n"
+msgstr ""
+
+#: handlers/test.py:78 handlers/test.py:107
 msgid "Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!"
 msgstr ""
 
-#: handlers/test.py:75
+#: handlers/test.py:94
 msgid ""
 "{prog_lang} бойича саволлар сони: {quest_count}\n"
 "Тогри топилган жавоблар сони: {quest_true}\n"
@@ -139,7 +147,7 @@ msgid ""
 "Тест натижалари жонатилди, мутахассислар жавобини кутинг"
 msgstr ""
 
-#: handlers/test.py:93
+#: handlers/test.py:120
 msgid ""
 "{prog_lang} бойича саволлар сони: {quest_count}\n"
 "Тогри топилган жавоблар сони: {quest_true}\n"
@@ -171,7 +179,7 @@ msgid ""
 "юбориш\" тугмасини босинг:"
 msgstr ""
 
-#: handlers/user.py:88
+#: handlers/user.py:90
 msgid ""
 "📝 Анкетангиз:\n"
 "\n"
@@ -184,7 +192,7 @@ msgid ""
 "📰 Резюмеингиз: {file_name}"
 msgstr ""
 
-#: handlers/user.py:105
+#: handlers/user.py:108
 msgid "✍🏼 Фамилия, Исм, Шарифни киритинг."
 msgstr ""
 
@@ -197,8 +205,8 @@ msgid "Аёл"
 msgstr ""
 
 #: keyboards/inline.py:21 keyboards/inline.py:34 keyboards/inline.py:44
-#: keyboards/inline.py:54 keyboards/inline.py:68 keyboards/inline.py:80
-#: keyboards/inline.py:94 keyboards/reply.py:7
+#: keyboards/inline.py:54 keyboards/inline.py:68 keyboards/inline.py:87
+#: keyboards/inline.py:101 keyboards/reply.py:7
 msgid "🔙  Оркага"
 msgstr ""
 
@@ -230,27 +238,31 @@ msgstr ""
 msgid "♻️Кайта тузиш"
 msgstr ""
 
-#: keyboards/inline.py:53 keyboards/inline.py:93
+#: keyboards/inline.py:53 keyboards/inline.py:100
 msgid "✅Тасдиклаш"
 msgstr ""
 
-#: keyboards/inline.py:61 keyboards/inline.py:126
+#: keyboards/inline.py:61 keyboards/inline.py:133
 msgid "Анкетани кайта тузиш"
 msgstr ""
 
-#: keyboards/inline.py:101
+#: keyboards/inline.py:75
+msgid "🇺🇿 Тилни ўзагртириш 🇷🇺"
+msgstr ""
+
+#: keyboards/inline.py:108
 msgid "🔄 Анкетани кайта тузиш"
 msgstr ""
 
-#: keyboards/inline.py:102
+#: keyboards/inline.py:109
 msgid "▶️ Тестни бошлаш"
 msgstr ""
 
-#: keyboards/inline.py:103
+#: keyboards/inline.py:110
 msgid "✖️ Бекор килиш"
 msgstr ""
 
-#: keyboards/inline.py:125
+#: keyboards/inline.py:132
 msgid "Тестни бошлаш"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-18 17:48+0500\n"
+"POT-Creation-Date: 2023-01-20 15:07+0500\n"
 "PO-Revision-Date: 2023-01-17 12:27+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -54,7 +54,7 @@ msgstr ""
 "\n"
 "Tanlangan: {data}"
 
-#: handlers/callbacks.py:104 handlers/user.py:20
+#: handlers/callbacks.py:104 handlers/callbacks.py:164 handlers/user.py:20
 msgid "🏡 Бош меню:"
 msgstr "🏡 Bosh menyu:"
 
@@ -92,7 +92,7 @@ msgstr ""
 "Qo'shimcha bilimlaringiz:\n"
 "Bir nechtasini belgilashingiz mumkin:"
 
-#: handlers/callbacks.py:161 handlers/callbacks.py:165
+#: handlers/callbacks.py:161 handlers/callbacks.py:167
 msgid ""
 "Дастурлаш тили: {prog_lang}\n"
 "Кошимча билимлар: {extra_categories}\n"
@@ -112,11 +112,11 @@ msgstr ""
 "bering, bir vakansiyaga bir marotaba rezyume yuborishingiz mumkin. Fayl "
 "xajmi 10 MB dan ortmasligi lozim."
 
-#: handlers/callbacks.py:161 handlers/callbacks.py:165 handlers/user.py:94
+#: handlers/callbacks.py:161 handlers/callbacks.py:167 handlers/user.py:96
 msgid "Йок"
 msgstr "Yo'q"
 
-#: handlers/callbacks.py:181
+#: handlers/callbacks.py:183
 msgid ""
 "🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз "
 "мумкин.\n"
@@ -133,16 +133,17 @@ msgstr ""
 "🤖 Hurmatli nomzod «Testni boshlash» tugmasini bosib testni boshlashingiz "
 "mumkin.\n"
 "\n"
-"📚 Testlar soni {q_count} ta. Testda {prog_lang} bo'yicha savollar bo'ladi. \n"
+"📚 Testlar soni {q_count} ta. Testda {prog_lang} bo'yicha savollar "
+"bo'ladi. \n"
 "\n"
 "🕘 {q_count} ta savolga jami {time_count} daqiqa vaqt beriladi. \n"
 "\n"
-"❗️ Testni boshlaganingizdan keyin {time_count} daqiqa ichida tugatmasangiz "
-"test natijasi xisoblanmaydi. \n"
+"❗️ Testni boshlaganingizdan keyin {time_count} daqiqa ichida "
+"tugatmasangiz test natijasi xisoblanmaydi. \n"
 "\n"
 "Omad yor bo'lsin !"
 
-#: handlers/callbacks.py:191
+#: handlers/callbacks.py:193
 msgid ""
 "🤖 Ҳурматли номзод «Тeстни бошлаш» тугмасини босиб тeстни бошлашингиз "
 "мумкин.\n"
@@ -160,24 +161,33 @@ msgstr ""
 "🤖 Hurmatli nomzod «Testni boshlash» tugmasini bosib testni boshlashingiz "
 "mumkin.\n"
 "\n"
-"📚 Testlar soni {q_count} ta. Testda {extra_category} va {prog_lang} bo'yicha savollar bo'ladi. \n"
+"📚 Testlar soni {q_count} ta. Testda {extra_category} va {prog_lang} "
+"bo'yicha savollar bo'ladi. \n"
 "\n"
 "🕘 {q_count} ta savolga jami {time_count} daqiqa vaqt beriladi. \n"
 "\n"
-"❗️ Testni boshlaganingizdan keyin {time_count} daqiqa ichida tugatmasangiz "
-"test natijasi xisoblanmaydi. \n"
+"❗️ Testni boshlaganingizdan keyin {time_count} daqiqa ichida "
+"tugatmasangiz test natijasi xisoblanmaydi. \n"
 "\n"
 "Omad yor bo'lsin !"
 
-#: handlers/test.py:15
+#: handlers/test.py:16
 msgid "⏳ Сизда қолган вақт: {min} min. {sec} sec."
 msgstr "⏳ Sizda qolgan vaqt: {min} min. {sec} sec."
 
-#: handlers/test.py:62 handlers/test.py:85
+#: handlers/test.py:48
+msgid "Дастурлаш тили саволларига берилган жавоблар:\n"
+msgstr "Dasturlash tili savollariga berilgan javoblar:\n"
+
+#: handlers/test.py:54
+msgid "Кошимча билимлар саволларига берилган жавоблар:\n"
+msgstr "Qo'shimcha bilimlar savollariga berilgan javoblar:\n"
+
+#: handlers/test.py:78 handlers/test.py:107
 msgid "Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!"
 msgstr "Ajratilgan vaqt nihoyasiga yetdi, test natijalari qabul qilinmaydi!"
 
-#: handlers/test.py:75
+#: handlers/test.py:94
 msgid ""
 "{prog_lang} бойича саволлар сони: {quest_count}\n"
 "Тогри топилган жавоблар сони: {quest_true}\n"
@@ -189,7 +199,7 @@ msgstr ""
 "\n"
 "Test natijalari jo'natildi, mutaxassis javobini kuting"
 
-#: handlers/test.py:93
+#: handlers/test.py:120
 msgid ""
 "{prog_lang} бойича саволлар сони: {quest_count}\n"
 "Тогри топилган жавоблар сони: {quest_true}\n"
@@ -234,7 +244,7 @@ msgstr ""
 "☝️ Telefon raqamingizni +998********* shaklda yuboring, yoki \"📱 Raqam "
 "yuborish\" tugmasini bosing"
 
-#: handlers/user.py:88
+#: handlers/user.py:90
 msgid ""
 "📝 Анкетангиз:\n"
 "\n"
@@ -256,7 +266,7 @@ msgstr ""
 "🖥 Qo'shimcha ma'lumotlar: {add_info}\n"
 "📰 Resyumeingiz: {file_name}"
 
-#: handlers/user.py:105
+#: handlers/user.py:108
 msgid "✍🏼 Фамилия, Исм, Шарифни киритинг."
 msgstr "✍🏼 Familiya, Ism, Sharifni kiriting"
 
@@ -269,8 +279,8 @@ msgid "Аёл"
 msgstr "Ayol"
 
 #: keyboards/inline.py:21 keyboards/inline.py:34 keyboards/inline.py:44
-#: keyboards/inline.py:54 keyboards/inline.py:68 keyboards/inline.py:80
-#: keyboards/inline.py:94 keyboards/reply.py:7
+#: keyboards/inline.py:54 keyboards/inline.py:68 keyboards/inline.py:87
+#: keyboards/inline.py:101 keyboards/reply.py:7
 msgid "🔙  Оркага"
 msgstr "🔙 Orqaga"
 
@@ -302,29 +312,33 @@ msgstr "PhD"
 msgid "♻️Кайта тузиш"
 msgstr "♻️ Qayta tuzish"
 
-#: keyboards/inline.py:53 keyboards/inline.py:93
+#: keyboards/inline.py:53 keyboards/inline.py:100
 msgid "✅Тасдиклаш"
 msgstr "✅ Tasdiqlash"
 
-#: keyboards/inline.py:61 keyboards/inline.py:126
+#: keyboards/inline.py:61 keyboards/inline.py:133
 msgid "Анкетани кайта тузиш"
 msgstr "Anketani qayta tuzish"
 
-#: keyboards/inline.py:101
+#: keyboards/inline.py:75
+msgid "🇺🇿 Тилни ўзагртириш 🇷🇺"
+msgstr "🇺🇿 Tilni o'zgartirish 🇷🇺"
+
+#: keyboards/inline.py:108
 #, fuzzy
 msgid "🔄 Анкетани кайта тузиш"
-msgstr "🔄Anketani qayta tuzish"
+msgstr "🔄 Anketani qayta tuzish"
 
-#: keyboards/inline.py:102
+#: keyboards/inline.py:109
 #, fuzzy
 msgid "▶️ Тестни бошлаш"
-msgstr "▶️Testni boshlash"
+msgstr "▶️ Testni boshlash"
 
-#: keyboards/inline.py:103
+#: keyboards/inline.py:110
 msgid "✖️ Бекор килиш"
 msgstr "✖️ Bekor qilish"
 
-#: keyboards/inline.py:125
+#: keyboards/inline.py:132
 msgid "Тестни бошлаш"
 msgstr "Testni boshlash"
 

@@ -68,6 +68,13 @@ def orqaga_inl_kb(lang):
     [InlineKeyboardButton(_("🔙  Оркага", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
 ])
 
+def lang_back_inl_kb(lang):
+    return InlineKeyboardMarkup(
+    row_width=1,
+    inline_keyboard=[
+    [InlineKeyboardButton(_("🇺🇿 Тилни ўзагртириш 🇷🇺", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
+])
+
 def yosh_tanlash_inl_kb(lang):
     return InlineKeyboardMarkup(
     row_width=2,
