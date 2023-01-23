@@ -115,16 +115,20 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
             
         elif check_time:
             resp = questions_check(user_lang, answers)
+            percent=(resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) / (resp['extra_questions']['count_questions'] + resp['extra_questions']['count_true']) * 100 * 100
             await UserInfo.registered_and_tested.set()
             await send_answers(callback, answers)
             await callback.message.edit_text(_(\
-                        '{prog_lang} бойича саволлар сони: {quest_count}\n'\
+                        'Тест натижаси:\n' \
+                        'Асосий {prog_lang}: '\
+                        'Саволлар сони: {quest_count}\n'\
                         'Тогри топилган жавоблар сони: {quest_true}\n\n'\
-                        '{extra_cat} бойича саволлар сони: {extra_quest_count}\n'\
+                        '{extra_cat} саволлар сони: {extra_quest_count}\n'\
                         'Тогри топилган жавоблар сони: {extra_quest_true}\n\n'\
-                        'Тест натижалари жонатилди, мутахассислар жавобини кутинг', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), extra_cat=', '.join(user_data.get('extra_category')), \
+                        '% ---- {percent} % ', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), extra_cat=', '.join(user_data.get('extra_category')), \
                             quest_count=resp['questions']['count_questions'], quest_true=resp['questions']['count_true'],\
-                            extra_quest_count=resp['extra_questions']['count_questions'], extra_quest_true=resp['extra_questions']['count_true'])
+                            extra_quest_count=resp['extra_questions']['count_questions'], extra_quest_true=resp['extra_questions']['count_true']),
+                            
                             )  
             await callback.message.answer_document(InputFile(f'{callback.message.chat.id} answers', filename="Tanlangan javoblar.txt"))    
     await state.update_data(answers=answers)
