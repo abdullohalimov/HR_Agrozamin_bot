@@ -4,12 +4,13 @@ from tgbot.hr_i18n import _
 from tgbot.services.api import categories, extra_categories, sessionss
 
 
-language_inl_kb = InlineKeyboardMarkup(
+def language_inl_kb(ltype):
+    return InlineKeyboardMarkup(
     row_width=1, 
     inline_keyboard=[
-    [InlineKeyboardButton("🇺🇿 Ўзбекча", callback_data=lang_callback.new("kirill_uz"))],
-    [InlineKeyboardButton("🇷🇺 Русский", callback_data=lang_callback.new("russian"))],
-    [InlineKeyboardButton("🇺🇿 O'zbekcha", callback_data=lang_callback.new("lotin_uz"))]
+    [InlineKeyboardButton("🇺🇿 Ўзбекча", callback_data=lang_callback.new("kirill_uz", ltype))],
+    [InlineKeyboardButton("🇷🇺 Русский", callback_data=lang_callback.new("russian", ltype))],
+    [InlineKeyboardButton("🇺🇿 O'zbekcha", callback_data=lang_callback.new("lotin_uz", ltype))]
 ])
 
 def jins_inl_kb(lang):
@@ -72,7 +73,7 @@ def lang_back_inl_kb(lang):
     return InlineKeyboardMarkup(
     row_width=1,
     inline_keyboard=[
-    [InlineKeyboardButton(_("🇺🇿 Тилни ўзагртириш 🇷🇺", locale=lang), callback_data=tasdiqlash_callback.new("ortga"))]
+    
 ])
 
 def yosh_tanlash_inl_kb(lang):
@@ -130,5 +131,6 @@ def main_menu_inl_kb(lang):
         row_width=1,
         inline_keyboard=[
         [InlineKeyboardButton(_("Тестни бошлаш", locale=lang), callback_data=tasdiqlash_callback.new("testni_boshlash"))],
-        [InlineKeyboardButton(_("Анкетани кайта тузиш", locale=lang), callback_data=tasdiqlash_callback.new('restart'))]
+        [InlineKeyboardButton(_("🇺🇿 Тилни ўзагртириш 🇷🇺", locale=lang), callback_data=tasdiqlash_callback.new("lang_change"))],
+        [InlineKeyboardButton(_("Анкетани кайта тузиш", locale=lang), callback_data=tasdiqlash_callback.new('restart'))],
         ])

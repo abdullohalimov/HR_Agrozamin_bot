@@ -6,7 +6,7 @@ from aiogram.types import Message, ContentType
 from aiogram.types.input_file import InputFile
 
 
-from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb, main_menu_inl_kb, lang_back_inl_kb
+from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb, main_menu_inl_kb
 from tgbot.keyboards.reply import phone_keyb
 from tgbot.misc.states import UserInfo 
 from tgbot.services.api import delete_users
@@ -22,7 +22,7 @@ async def user_start(message: Message, state: FSMContext):
         await message.answer(_("✅ Иштирокингиз учун катта рахмат", locale=user_lang))
     else:
         # await message.answer_photo(photo=InputFile(r'C:\Users\alimov.a\Desktop\hrbot (2)\hrbot\tgbot\photos\start.jpg'))
-        await message.answer("Ассалому алайкум ! Келинг, аввал хизмат кўрсатиш тилини танлаб олайлик.\n\nAssalomu alaykum ! Keling, avval xizmat ko'rsatish tilini tanlab olaylik.\n\nЗдравствуйте ! Давайте для начала выберим язык обслуживания.", reply_markup=language_inl_kb)
+        await message.answer("Ассалому алайкум ! Келинг, аввал хизмат кўрсатиш тилини танлаб олайлик.\n\nAssalomu alaykum ! Keling, avval xizmat ko'rsatish tilini tanlab olaylik.\n\nЗдравствуйте ! Давайте для начала выберим язык обслуживания.", reply_markup=language_inl_kb("new"))
 
 async def user_fio(message: Message, state: FSMContext):
     data = await state.get_data()
@@ -32,7 +32,7 @@ async def user_fio(message: Message, state: FSMContext):
         await message.delete()
         await message.bot.delete_message(chat_id=message.chat.id, message_id=data.get('fioms'))
         await UserInfo.next()
-        phonems = await message.answer(_("Телефон рақамингизни +998********* шаклда юборинг, ёки \"📱 Рақам юбориш\" тугмасини босинг:", locale=user_lang), reply_markup=phone_keyb(user_lang))
+        phonems = await message.answer(_("Телефон рақамингизни +998 ** *** ** ** \nшаклда юборинг, ёки \"📱 Рақам юбориш\" \nтугмасини босинг:", locale=user_lang), reply_markup=phone_keyb(user_lang))
         await state.update_data(phonems=phonems.message_id)
     else:
         await message.delete()
@@ -71,7 +71,7 @@ async def user_phone(message: Message, state: FSMContext):
             else:
                 raise Exception
         except Exception:
-            phonems = await message.answer(_("❌  Телефон рақамингиз нотўғри форматда киритилган.\n\n☝️ Тeлeфон рақамингизни +9989** *** ** ** шаклда юборинг, ёки \"📱 Рақам юбориш\" тугмасини босинг:", locale=user_lang), reply_markup=phone_keyb(user_lang))
+            phonems = await message.answer(_("❌  Телефон рақамингиз нотўғри форматда киритилган.\n\n☝️ Тeлeфон рақамингизни +9989 ** *** ** ** \nшаклда юборинг, ёки \"📱 Рақам юбориш\" \nтугмасини босинг:", locale=user_lang), reply_markup=phone_keyb(user_lang))
 
 
     await state.update_data(phonems=phonems.message_id)

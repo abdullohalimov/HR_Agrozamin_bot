@@ -1,6 +1,6 @@
 from aiogram.utils.callback_data import CallbackData
 
-lang_callback = CallbackData("lang", "language")
+lang_callback = CallbackData("lang", "language", "type")
 jins_callback = CallbackData("jins", "jinsi")
 education_callback = CallbackData("educ", "daraja")
 programming_lang_callback = CallbackData("prog", "language", 'id')

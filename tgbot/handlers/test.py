@@ -22,10 +22,10 @@ async def send_question_message(state, callback, user_data, extra, questions_lis
         cur_question = list(questions.keys())[0]
         question = questions.pop(list(questions.keys())[0])
         try:
-            await callback.message.edit_text(f"<b>{user_data.get('prog_lang')}</b>\n{cur_question}. {question['question']}\n\nA) {question['A']}\nB) {question['B']}\nC) {question['C']}\nD) {question['D']}\n\n<b>{time}</b>", \
+            await callback.message.edit_text(f"<b>{user_data.get('prog_lang')}</b>\n<b>{cur_question}.</b> {question['question']}\n\n<b>A)</b> {question['A']}\n<b>B)</b> {question['B']}\n<b>C)</b> {question['C']}\n<b>D)</b> {question['D']}\n\n<b>{time}</b>", \
                 parse_mode='HTML', reply_markup=test_question_inl_kb(qid=question['id'], category=question['category']))
         except Exception:
-            await callback.message.edit_text(f"*{user_data.get('prog_lang')}*\n{cur_question}. {question['question']}\n\nA) {question['A']}\nB) {question['B']}\nC) {question['C']}\nD) {question['D']}\n\n*{time}*", \
+            await callback.message.edit_text(f"*{user_data.get('prog_lang')}*\n*{cur_question}.* {question['question']}\n\n*A)* {question['A']}\n*B)* {question['B']}\n*C)* {question['C']}\n*D)* {question['D']}\n\n*{time}*", \
                 parse_mode='Markdown', reply_markup=test_question_inl_kb(qid=question['id'], category=question['category']))
         
         await state.update_data(questions=questions)
@@ -36,11 +36,11 @@ async def send_question_message(state, callback, user_data, extra, questions_lis
         cur_extra_question = list(extra_questions.keys())[0]
         extra_question = extra_questions.pop(list(extra_questions.keys())[0])
         try:
-            await callback.message.edit_text(f"<b>{', '.join(user_data.get('extra_category'))}</b>\n{cur_extra_question}. {extra_question['question']}\n\nA) {extra_question['A']}\nB) {extra_question['B']}\nC) {extra_question['C']}\nD) {extra_question['D']}\n\n<b>{time}</b>", \
+            await callback.message.edit_text(f"<b>{', '.join(user_data.get('extra_category'))}\n{cur_extra_question}.</b> {extra_question['question']}\n\n<b>A)</b> {extra_question['A']}\n<b>B)</b> {extra_question['B']}\n<b>C)</b> {extra_question['C']}\n<b>D)</b> {extra_question['D']}\n\n<b>{time}</b>", \
                         parse_mode='HTML', reply_markup=test_question_inl_kb(qid=extra_question['id'], \
                         category=extra_question['extra_category']))
         except Exception:
-            await callback.message.edit_text(f"*{', '.join(user_data.get('extra_category'))}*\n{cur_extra_question}. {extra_question['question']}\n\nA) {extra_question['A']}\nB) {extra_question['B']}\nC) {extra_question['C']}\nD) {extra_question['D']}\n\n*{time}*", \
+            await callback.message.edit_text(f"*{', '.join(user_data.get('extra_category'))}\n{cur_extra_question}.* {extra_question['question']}\n\n*A)* {extra_question['A']}\n*B)* {extra_question['B']}\n*C)* {extra_question['C']}\n*D)* {extra_question['D']}\n\n*{time}*", \
                         parse_mode='Markdown', reply_markup=test_question_inl_kb(qid=extra_question['id'], \
                         category=extra_question['extra_category']))
         await state.update_data(extra_questions=extra_questions)
@@ -122,8 +122,9 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
                         '🔹 Тогри топилган жавоблар сони: {quest_true}\n\n'\
                         '🔹 {extra_cat} саволлар сони: {extra_quest_count}\n'\
                         '🔹 Тогри топилган жавоблар сони: {extra_quest_true}\n\n'\
+                        '🔹 Умумий тогри топилган жавоблар сони: {all_true}\n\n'\
                         '📈 % ---- {percent} % ', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), extra_cat=', '.join(user_data.get('extra_category')), min=time_min, sec=time_sec,\
-                            quest_count=resp['questions']['count_questions'], quest_true=resp['questions']['count_true'],\
+                            quest_count=resp['questions']['count_questions'], quest_true=resp['questions']['count_true'], all_true=resp['questions']['count_true'] + resp['extra_questions']['count_true'],
                             extra_quest_count=resp['extra_questions']['count_questions'], extra_quest_true=resp['extra_questions']['count_true'], percent=percent),
                             )  
     await state.update_data(answers=answers)
