@@ -131,6 +131,6 @@ def main_menu_inl_kb(lang):
         row_width=1,
         inline_keyboard=[
         [InlineKeyboardButton(_("Тестни бошлаш", locale=lang), callback_data=tasdiqlash_callback.new("testni_boshlash"))],
-        [InlineKeyboardButton(_("🇺🇿 Тилни ўзагртириш 🇷🇺", locale=lang), callback_data=tasdiqlash_callback.new("lang_change"))],
         [InlineKeyboardButton(_("Анкетани кайта тузиш", locale=lang), callback_data=tasdiqlash_callback.new('restart'))],
+        [InlineKeyboardButton(_("🇺🇿 Тилни ўзагртириш 🇷🇺", locale=lang), callback_data=tasdiqlash_callback.new("lang_change"))],
         ])
