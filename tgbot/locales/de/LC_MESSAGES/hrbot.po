@@ -45,7 +45,7 @@ msgstr "Ma'lumotingiz:"
 
 #: handlers/callbacks.py:64 handlers/callbacks.py:152
 msgid "<em>Дастурлаш тилини танланг:</em>"
-msgstr ""
+msgstr "<em>Dasturlash tilini tanlang:</em>"
 
 #: handlers/callbacks.py:73 handlers/callbacks.py:92
 msgid ""
