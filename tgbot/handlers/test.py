@@ -78,7 +78,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
                 await send_question_message(state, callback, user_data, extra=True, questions_list=extra_questions, chck_tme=check_time, user_lang=user_lang)
             else:
                 resp = questions_check(user_lang, answers)
-                percent= (resp['questions']['count_true'] + resp['extra_questions']['count_true']) / (resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) * 100 
+                percent= int((resp['questions']['count_true'] + resp['extra_questions']['count_true']) / (resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) * 100 )
                 time = datetime.now() - user_data.get('test_start_time', datetime.now())
                 time_min = int(int(time.seconds / 60) * 60 / 60)
                 time_sec = time.seconds - int(time.seconds / 60) * 60
@@ -108,7 +108,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
             
         elif check_time:
             resp = questions_check(user_lang, answers)
-            percent=(resp['questions']['count_true'] + resp['extra_questions']['count_true']) / (resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) * 100 
+            percent = int((resp['questions']['count_true'] + resp['extra_questions']['count_true']) / (resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) * 100 )
             time = datetime.now() - user_data.get('test_start_time', datetime.now())
             time_min = int(int(time.seconds / 60) * 60 / 60)
             time_sec = time.seconds - int(time.seconds / 60) * 60
