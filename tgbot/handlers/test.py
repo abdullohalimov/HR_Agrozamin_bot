@@ -1,19 +1,22 @@
+"""Тестирование"""
 from datetime import datetime
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.types import Message,  CallbackQuery
+from aiogram.types import CallbackQuery
+
 from tgbot.misc.states import CategoryTests, UserInfo
 from tgbot.services.api import questions_check
-from tgbot.keyboards.inline import start_test_inl_kb, test_question_inl_kb
-from tgbot.keyboards.callback_factory import testlar_callback, tasdiqlash_callback
+from tgbot.keyboards.inline import test_question_inl_kb
+from tgbot.keyboards.callback_factory import testlar_callback
 from tgbot.hr_i18n import _
-from aiogram.types.input_file import InputFile
 
 
 async def send_question_message(state, callback, user_data, extra, questions_list, chck_tme, user_lang):
+    """Отправка текста вопросов"""
     check_time = chck_tme
     user_time = user_data.get("all_questions", 40)
     time = _("⏳ Сизда қолган вақт: {min} min. {sec} sec.", locale=user_lang).format(min=int(user_time - check_time.seconds / 60), sec=60 - int(chck_tme.total_seconds() - int(chck_tme.total_seconds() / 60) * 60))
+
     if not extra:
         questions = questions_list
         cur_question = list(questions.keys())[0]
@@ -41,23 +44,9 @@ async def send_question_message(state, callback, user_data, extra, questions_lis
                         parse_mode='Markdown', reply_markup=test_question_inl_kb(qid=extra_question['id'], \
                         category=extra_question['extra_category']))
         await state.update_data(extra_questions=extra_questions)
-        
-async def send_answers(callback, answers):
-    txt_result = ""
-    if answers['questions'] != {}:
-        txt_result+=_("Дастурлаш тили саволларига берилган жавоблар:\n")
-        for i in range(1, len(list(answers['questions']))+1):
-            txt_result += f"{i}) {list(answers['questions'].values())[i-1]}\n"
-    else:
-        txt_result="Javoblar tanlanmagan"
-    if answers['extra_questions'] != {}:
-        txt_result+=_("Кошимча билимлар саволларига берилган жавоблар:\n")
-        for i in range(1, len(list(answers['extra_questions']))+1):
-            txt_result += f"{i}) {list(answers['questions'].values())[i-1]}\n"
-    with open(file=f'{callback.message.chat.id} answers', mode="w", encoding="UTF-8") as file:
-        file.write(txt_result)
-
+     
 async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callback_data: dict):
+    """Основная логика тестирования"""
     user_state = await state.get_state()
     user_data = await state.get_data()
     user_lang = user_data.get('language')
@@ -76,8 +65,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
         answers['questions'][callback_data.get('id')] = callback_data.get('choice')
         if check_time.seconds / 60 > user_data.get('all_questions'):
             await callback.message.edit_text(_("Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!", locale=user_lang))
-            await send_answers(callback, answers)
-            await callback.message.answer_document(InputFile(f'{callback.message.chat.id} answers', filename="Tanlangan javoblar.txt"))    
+            
 
             check_time = False
         if questions != {} and check_time:
@@ -90,14 +78,20 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
                 await send_question_message(state, callback, user_data, extra=True, questions_list=extra_questions, chck_tme=check_time, user_lang=user_lang)
             else:
                 resp = questions_check(user_lang, answers)
+                percent= (resp['questions']['count_true'] + resp['extra_questions']['count_true']) / (resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) * 100 
+                time = datetime.now() - user_data.get('test_start_time', datetime.now())
+                time_min = int(int(time.seconds / 60) * 60 / 60)
+                time_sec = time.seconds - int(time.seconds / 60) * 60
                 await UserInfo.registered_and_tested.set()
                 await callback.message.edit_text(_(\
-                            '{prog_lang} бойича саволлар сони: {quest_count}\n'\
-                            'Тогри топилган жавоблар сони: {quest_true}\n\n'\
-                            'Тест натижалари жонатилди, мутахассислар жавобини кутинг', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), \
+                            '✅ Тест натижаси:\n' \
+                            '⏱ Кeтган вақт: {min} min. {sec} sec.\n' \
+                            '🔹 Асосий {prog_lang}:\n'\
+                            '🔹 Саволлар сони: {quest_count}\n'\
+                            '🔹 Тогри топилган жавоблар сони: {quest_true}\n\n'\
+                            '📈 % ---- {percent} % ', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), percent=percent, min=time_min, sec=time_sec,\
                                 quest_count=resp['questions']['count_questions'], quest_true=resp['questions']['count_true']))
-                await send_answers(callback, answers)
-                await callback.message.answer_document(InputFile(f'{callback.message.chat.id} answers', filename="Tanlangan javoblar.txt"))    
+                
 
 
     if user_state == 'CategoryTests:extra_testing':
@@ -106,8 +100,7 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
         if check_time.seconds / 60 > user_data.get('all_questions'):
             await callback.message.edit_text(_("Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!", locale=user_lang))
             check_time = False
-            await send_answers(callback, answers)
-            await callback.message.answer_document(InputFile(f'{callback.message.chat.id} answers', filename="Tanlangan javoblar.txt"))    
+            
 
 
         if extra_questions != {} and check_time:
@@ -115,25 +108,28 @@ async def questions_callbacks(callback: CallbackQuery, state: FSMContext, callba
             
         elif check_time:
             resp = questions_check(user_lang, answers)
-            percent=(resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) / (resp['extra_questions']['count_questions'] + resp['extra_questions']['count_true']) * 100 * 100
+            percent=(resp['questions']['count_true'] + resp['extra_questions']['count_true']) / (resp['questions']['count_questions'] + resp['extra_questions']['count_questions']) * 100 
+            time = datetime.now() - user_data.get('test_start_time', datetime.now())
+            time_min = int(int(time.seconds / 60) * 60 / 60)
+            time_sec = time.seconds - int(time.seconds / 60) * 60
             await UserInfo.registered_and_tested.set()
-            await send_answers(callback, answers)
+            
             await callback.message.edit_text(_(\
-                        'Тест натижаси:\n' \
-                        'Асосий {prog_lang}: '\
-                        'Саволлар сони: {quest_count}\n'\
-                        'Тогри топилган жавоблар сони: {quest_true}\n\n'\
-                        '{extra_cat} саволлар сони: {extra_quest_count}\n'\
-                        'Тогри топилган жавоблар сони: {extra_quest_true}\n\n'\
-                        '% ---- {percent} % ', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), extra_cat=', '.join(user_data.get('extra_category')), \
+                        '✅ Тест натижаси:\n' \
+                        '⏱ Кeтган вақт: {min} min. {sec} sec.\n' \
+                        '🔹 Асосий {prog_lang}:\n'\
+                        '🔹 Саволлар сони: {quest_count}\n'\
+                        '🔹 Тогри топилган жавоблар сони: {quest_true}\n\n'\
+                        '🔹 {extra_cat} саволлар сони: {extra_quest_count}\n'\
+                        '🔹 Тогри топилган жавоблар сони: {extra_quest_true}\n\n'\
+                        '📈 % ---- {percent} % ', locale=user_lang).format(prog_lang=user_data.get('prog_lang'), extra_cat=', '.join(user_data.get('extra_category')), min=time_min, sec=time_sec,\
                             quest_count=resp['questions']['count_questions'], quest_true=resp['questions']['count_true'],\
-                            extra_quest_count=resp['extra_questions']['count_questions'], extra_quest_true=resp['extra_questions']['count_true']),
-                            
+                            extra_quest_count=resp['extra_questions']['count_questions'], extra_quest_true=resp['extra_questions']['count_true'], percent=percent),
                             )  
-            await callback.message.answer_document(InputFile(f'{callback.message.chat.id} answers', filename="Tanlangan javoblar.txt"))    
     await state.update_data(answers=answers)
     print(answers)
     await callback.answer(cache_time=10)    
 
 def register_test_handlers(dp: Dispatcher):
+    """Регистрация хендлеров"""
     dp.register_callback_query_handler(questions_callbacks, testlar_callback.filter(), state='*')

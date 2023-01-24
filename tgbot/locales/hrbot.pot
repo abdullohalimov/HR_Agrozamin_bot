@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-20 15:07+0500\n"
+"POT-Creation-Date: 2023-01-24 09:49+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,35 +127,41 @@ msgstr ""
 msgid "⏳ Сизда қолган вақт: {min} min. {sec} sec."
 msgstr ""
 
-#: handlers/test.py:48
+#: handlers/test.py:49
 msgid "Дастурлаш тили саволларига берилган жавоблар:\n"
 msgstr ""
 
-#: handlers/test.py:54
+#: handlers/test.py:55
 msgid "Кошимча билимлар саволларига берилган жавоблар:\n"
 msgstr ""
 
-#: handlers/test.py:78 handlers/test.py:107
+#: handlers/test.py:79 handlers/test.py:115
 msgid "Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!"
 msgstr ""
 
-#: handlers/test.py:94
+#: handlers/test.py:99
 msgid ""
-"{prog_lang} бойича саволлар сони: {quest_count}\n"
-"Тогри топилган жавоблар сони: {quest_true}\n"
+"✅ Тест натижаси:\n"
+"⏱ Кeтган вақт: {min} min. {sec} sec.\n"
+"🔹 Асосий {prog_lang}:\n"
+"🔹 Саволлар сони: {quest_count}\n"
+"🔹 Тогри топилган жавоблар сони: {quest_true}\n"
 "\n"
-"Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+"📈 % ---- {percent} % "
 msgstr ""
 
-#: handlers/test.py:120
+#: handlers/test.py:132
 msgid ""
-"{prog_lang} бойича саволлар сони: {quest_count}\n"
-"Тогри топилган жавоблар сони: {quest_true}\n"
+"✅ Тест натижаси:\n"
+"⏱ Кeтган вақт: {min} min. {sec} sec.\n"
+"🔹 Асосий {prog_lang}:\n"
+"🔹 Саволлар сони: {quest_count}\n"
+"🔹 Тогри топилган жавоблар сони: {quest_true}\n"
 "\n"
-"{extra_cat} бойича саволлар сони: {extra_quest_count}\n"
-"Тогри топилган жавоблар сони: {extra_quest_true}\n"
+"🔹 {extra_cat} саволлар сони: {extra_quest_count}\n"
+"🔹 Тогри топилган жавоблар сони: {extra_quest_true}\n"
 "\n"
-"Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+"📈 % ---- {percent} % "
 msgstr ""
 
 #: handlers/user.py:22

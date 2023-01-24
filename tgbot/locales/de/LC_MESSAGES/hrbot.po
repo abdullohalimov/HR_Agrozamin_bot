@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-20 15:07+0500\n"
+"POT-Creation-Date: 2023-01-24 09:49+0500\n"
 "PO-Revision-Date: 2023-01-17 12:27+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -175,47 +175,59 @@ msgstr ""
 msgid "⏳ Сизда қолган вақт: {min} min. {sec} sec."
 msgstr "⏳ Sizda qolgan vaqt: {min} min. {sec} sec."
 
-#: handlers/test.py:48
+#: handlers/test.py:49
 msgid "Дастурлаш тили саволларига берилган жавоблар:\n"
 msgstr "Dasturlash tili savollariga berilgan javoblar:\n"
 
-#: handlers/test.py:54
+#: handlers/test.py:55
 msgid "Кошимча билимлар саволларига берилган жавоблар:\n"
 msgstr "Qo'shimcha bilimlar savollariga berilgan javoblar:\n"
 
-#: handlers/test.py:78 handlers/test.py:107
+#: handlers/test.py:79 handlers/test.py:115
 msgid "Ажратилган вакт нихоясига етди, тест натижалари кабул килинмайди!"
 msgstr "Ajratilgan vaqt nihoyasiga yetdi, test natijalari qabul qilinmaydi!"
 
-#: handlers/test.py:94
+#: handlers/test.py:99
 msgid ""
-"{prog_lang} бойича саволлар сони: {quest_count}\n"
-"Тогри топилган жавоблар сони: {quest_true}\n"
+"✅ Тест натижаси:\n"
+"⏱ Кeтган вақт: {min} min. {sec} sec.\n"
+"🔹 Асосий {prog_lang}:\n"
+"🔹 Саволлар сони: {quest_count}\n"
+"🔹 Тогри топилган жавоблар сони: {quest_true}\n"
 "\n"
-"Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+"📈 % ---- {percent} % "
 msgstr ""
-"{prog_lang} bo'yicha savollar soni: {quest_count}\n"
-"To'g'ri topilgan javoblar soni: {quest_true}\n"
+"✅ Test natijasi:\n"
+"⏱ Ketgan vaqt: {min} min. {sec} sec.\n"
+"🔹 Asosiy {prog_lang}:\n"
+"🔹 Savollat soni: {quest_count}\n"
+"🔹 To'g'ri topilgan javoblar soni: {quest_true}\n"
 "\n"
-"Test natijalari jo'natildi, mutaxassis javobini kuting"
+"📈 % ---- {percent} % "
 
-#: handlers/test.py:120
+#: handlers/test.py:132
 msgid ""
-"{prog_lang} бойича саволлар сони: {quest_count}\n"
-"Тогри топилган жавоблар сони: {quest_true}\n"
+"✅ Тест натижаси:\n"
+"⏱ Кeтган вақт: {min} min. {sec} sec.\n"
+"🔹 Асосий {prog_lang}:\n"
+"🔹 Саволлар сони: {quest_count}\n"
+"🔹 Тогри топилган жавоблар сони: {quest_true}\n"
 "\n"
-"{extra_cat} бойича саволлар сони: {extra_quest_count}\n"
-"Тогри топилган жавоблар сони: {extra_quest_true}\n"
+"🔹 {extra_cat} саволлар сони: {extra_quest_count}\n"
+"🔹 Тогри топилган жавоблар сони: {extra_quest_true}\n"
 "\n"
-"Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+"📈 % ---- {percent} % "
 msgstr ""
-"{prog_lang} bo'yicha savollar soni: {quest_count}\n"
-"To'g'ri topilgan javoblar soni: {quest_true}\n"
+"✅ Test natijasi:\n"
+"⏱ Ketgan vaqt: {min} min. {sec} sec.\n"
+"🔹 Asosiy {prog_lang}:\n"
+"🔹 Savollat soni: {quest_count}\n"
+"🔹 To'g'ri topilgan javoblar soni: {quest_true}\n"
 "\n"
-"{extra_cat} bo'yicha savollar soni: {extra_quest_count}\n"
-"To'g'ri topilgan javoblar soni: {extra_quest_true}\n"
+"🔹 {extra_cat} savollar soni: {extra_quest_count}\n"
+"🔹 To'g'ri topilgan javoblar soni: {extra_quest_true}\n"
 "\n"
-"Test natijalari jo'natildi, mutaxassis javobini kuting"
+"📈 % ---- {percent} % "
 
 #: handlers/user.py:22
 msgid "✅ Иштирокингиз учун катта рахмат"
@@ -325,12 +337,10 @@ msgid "🇺🇿 Тилни ўзагртириш 🇷🇺"
 msgstr "🇺🇿 Tilni o'zgartirish 🇷🇺"
 
 #: keyboards/inline.py:108
-#, fuzzy
 msgid "🔄 Анкетани кайта тузиш"
 msgstr "🔄 Anketani qayta tuzish"
 
 #: keyboards/inline.py:109
-#, fuzzy
 msgid "▶️ Тестни бошлаш"
 msgstr "▶️ Testni boshlash"
 
@@ -373,4 +383,32 @@ msgstr "📱 Raqam yuborish"
 
 #~ msgid "Колган вакт: {time} дакика"
 #~ msgstr "Qolgan vaqt: {time} daqiqa"
+
+#~ msgid ""
+#~ "{prog_lang} бойича саволлар сони: {quest_count}\n"
+#~ "Тогри топилган жавоблар сони: {quest_true}\n"
+#~ "\n"
+#~ "Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+#~ msgstr ""
+#~ "{prog_lang} bo'yicha savollar soni: {quest_count}\n"
+#~ "To'g'ri topilgan javoblar soni: {quest_true}\n"
+#~ "\n"
+#~ "Test natijalari jo'natildi, mutaxassis javobini kuting"
+
+#~ msgid ""
+#~ "{prog_lang} бойича саволлар сони: {quest_count}\n"
+#~ "Тогри топилган жавоблар сони: {quest_true}\n"
+#~ "\n"
+#~ "{extra_cat} бойича саволлар сони: {extra_quest_count}\n"
+#~ "Тогри топилган жавоблар сони: {extra_quest_true}\n"
+#~ "\n"
+#~ "Тест натижалари жонатилди, мутахассислар жавобини кутинг"
+#~ msgstr ""
+#~ "{prog_lang} bo'yicha savollar soni: {quest_count}\n"
+#~ "To'g'ri topilgan javoblar soni: {quest_true}\n"
+#~ "\n"
+#~ "{extra_cat} bo'yicha savollar soni: {extra_quest_count}\n"
+#~ "To'g'ri topilgan javoblar soni: {extra_quest_true}\n"
+#~ "\n"
+#~ "Test natijalari jo'natildi, mutaxassis javobini kuting"
 
