@@ -6,7 +6,7 @@ from aiogram.types import Message, ContentType
 from aiogram.types.input_file import InputFile
 
 
-from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, orqaga_inl_kb, main_menu_inl_kb
+from tgbot.keyboards.inline import language_inl_kb, jins_inl_kb, tasdiqlash_inl_kb, lang_back_inl_kb, main_menu_inl_kb
 from tgbot.keyboards.reply import phone_keyb
 from tgbot.misc.states import UserInfo 
 from tgbot.services.api import delete_users
